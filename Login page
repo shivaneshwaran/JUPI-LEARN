@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WELCOME TO JUPI-LEARNING</title>
     <style>
-        body{
+        body {
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,7 +16,7 @@
             font-family: 'Arial', sans-serif;
         }
 
-        .container{
+        .container {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 15px;
             padding: 20px;
@@ -24,18 +24,25 @@
             width: 90%;
             max-width: 400px;
             text-align: center;
+            perspective: 1000px;
         }
 
-        .glass-panel{
+        .glass-panel {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
         }
 
-        .glass-panel input{
+        .glass-panel.flip {
+            transform: rotateY(180deg);
+        }
+
+        .glass-panel input {
             width: 90%;
             padding: 10px;
             margin: 10px 0;
@@ -46,7 +53,7 @@
             outline: none;
         }
 
-        .glass-panel button{
+        .glass-panel button {
             width: 100%;
             padding: 10px;
             border: none;
@@ -57,32 +64,34 @@
             outline: none;
         }
 
-        .glass-panel button:hover{
+        .glass-panel button:hover {
             background: #2980b9;
         }
 
-        .social-login{
+        .social-login {
             margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .social-login button{
+        .social-login button {
             width: 48%;
             padding: 10px;
             border: none;
             border-radius: 5px;
-            margin-right: 2%;
             cursor: pointer;
             outline: none;
             position: relative;
             overflow: hidden;
+            transition: opacity 0.3s;
         }
 
-        .social-login .google{
+        .social-login .google {
             background: linear-gradient(to right, #ea4c89, #f7cac9);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .social-login .google:before{
+        .social-login .google:before {
             content: "";
             position: absolute;
             top: 0;
@@ -96,18 +105,18 @@
             transition: all 0.3s ease-in-out;
         }
 
-        .social-login .google:hover:before{
+        .social-login .google:hover:before {
             transform: skewX(0deg);
             filter: blur(0px);
             opacity: 0.5;
         }
 
-        .social-login .instagram{
+        .social-login .instagram {
             background: linear-gradient(to right, #405de6, #5851db);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .social-login .instagram:before{
+        .social-login .instagram:before {
             content: "";
             position: absolute;
             top: 0;
@@ -121,13 +130,13 @@
             transition: all 0.3s ease-in-out;
         }
 
-        .social-login .instagram:hover:before{
+        .social-login .instagram:hover:before {
             transform: skewX(0deg);
             filter: blur(0px);
             opacity: 0.5;
         }
 
-        .social-login button:hover{
+        .social-login button:hover {
             opacity: 0.8;
         }
     </style>
@@ -148,6 +157,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.querySelector('.glass-panel').addEventListener('click', function() {
+        this.classList.toggle('flip');
+    });
+</script>
 
 </body>
 </html>
