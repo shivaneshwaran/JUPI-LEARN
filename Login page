@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WELCOME TO JUPI-LEARNING</title>
     <style>
-        body {
+        body{
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,16 +16,17 @@
             font-family: 'Arial', sans-serif;
         }
 
-        .container {
+        .container{
             background: rgba(255, 255, 255, 0.15);
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
         }
 
-        .glass-panel {
+        .glass-panel{
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
@@ -34,9 +35,9 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .glass-panel input {
+        .glass-panel input{
             width: 90%;
-            padding: 7px;
+            padding: 10px;
             margin: 10px 0;
             border: none;
             border-radius: 5px;
@@ -45,7 +46,7 @@
             outline: none;
         }
 
-        .glass-panel button {
+        .glass-panel button{
             width: 100%;
             padding: 10px;
             border: none;
@@ -56,8 +57,78 @@
             outline: none;
         }
 
-        .glass-panel button:hover {
+        .glass-panel button:hover{
             background: #2980b9;
+        }
+
+        .social-login{
+            margin-top: 20px;
+        }
+
+        .social-login button{
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-right: 2%;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-login .google{
+            background: linear-gradient(to right, #ea4c89, #f7cac9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-login .google:before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #ea4c89, #f7cac9);
+            transform: skewX(-20deg);
+            filter: blur(5px);
+            opacity: 0.2;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .social-login .google:hover:before{
+            transform: skewX(0deg);
+            filter: blur(0px);
+            opacity: 0.5;
+        }
+
+        .social-login .instagram{
+            background: linear-gradient(to right, #405de6, #5851db);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-login .instagram:before{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #405de6, #5851db);
+            transform: skewX(-20deg);
+            filter: blur(5px);
+            opacity: 0.2;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .social-login .instagram:hover:before{
+            transform: skewX(0deg);
+            filter: blur(0px);
+            opacity: 0.5;
+        }
+
+        .social-login button:hover{
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -65,12 +136,16 @@
 
 <div class="container">
     <div class="glass-panel">
-        <h2 style="color: #fff;">JUPI-LEARNING Login</h2>
+        <h2 style="color: #fff;">JUPI-LEARNING </h2>
         <form>
             <input type="text" placeholder="Username" required>
             <input type="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        <div class="social-login">
+            <button class="google">Login via Google</button>
+            <button class="instagram">Login via Instagram</button>
+        </div>
     </div>
 </div>
 
