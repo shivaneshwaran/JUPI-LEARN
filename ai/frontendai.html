@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPI LEARN Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        #study-area {
+            display: flex;
+            flex-direction: row;
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        #chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #chat-messages {
+            margin-bottom: 20px;
+        }
+
+        #user-input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 20px 0 0 20px;
+            font-size: 14px;
+        }
+
+        #send-button {
+            width: 60px;
+            padding: 10px;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 0 20px 20px 0;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #send-button:hover {
+            background-color: #45a049;
+        }
+
+        #study-content {
+            flex: 2;
+            padding: 20px;
+        }
+
+        h1, h2, p {
+            color: #333;
+        }
+
+        #response {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Welcome to JUPI LEARN</h1>
+    <div id="study-area">
+        <div id="chat-container">
+            <h2>JUPI LEARN Chatbot</h2>
+            <div id="chat-messages">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div id="input-container">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-button" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div id="study-content">
+            <!-- Add your study content here -->
+            <h2>About JUPI LEARN</h2>
+            <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
+            <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
+            <div id="response">
+                <!-- AI responses will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value.trim();
+            if (userInput === '') return;
+
+            displayMessage('You: ' + userInput);
+
+            // Call the function to send the user message to the chatbot and retrieve the response
+            // For demonstration purposes, the implementation of this function is omitted
+
+            // Display AI response in the response area
+            displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+
+            document.getElementById('user-input').value = '';
+        }
+
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        function displayResponse(response) {
+            const responseContainer = document.getElementById('response');
+            const response
+        }
+    </script>
+</body>
+</html>
