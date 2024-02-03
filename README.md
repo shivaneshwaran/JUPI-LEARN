@@ -20,4 +20,4 @@ OR
 <pre>http://127.0.0.1</pre>
 
 If everything goes well will see a page like this
-![Image of django webserver running at port 80](screenshots/django-running.png?raw=true)
+![Image of django webserver running at port 80](screenshots/running-flask.png?raw=true)
