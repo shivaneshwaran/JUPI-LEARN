@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+			body {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+			font-family: 'Arial', sans-serif;
+			position: relative;
+			}
+
+			.column {
+			float: left;
+			align-items: center;
+			justify-content: center;
+			width: 23%;
+			margin-bottom: 16px;
+			padding: 8px;
+			}
+
+			.card {
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+			margin: 8px;
+			}
+
+			.about-section {
+			padding: 50px;
+			text-align: center;
+			color: white;
+			}
+
+			.container {
+			padding: 16px;
+			}
+
+			.container::after, .row::after {
+			content: "";
+			clear: both;
+			display: table;
+			}
+
+			.text {
+			color: rgb(211, 211, 211);
+			}
+
+			@media screen and (max-width: 650px) {
+			.column {
+				width: 100%;
+				display: block;
+			}
+			}
+			</style>
+		</head>
+	<body>
+		<div class="about-section">
+			<h1>About Us</h1>
+			<p><h2>JUPI-LEARNING</h2></p>
+		</div>
+		
+		<h2 style="text-align:center" class="text">Our Team</h2>
+		<div class="row">
+			
+			<div class="column">
+				<div class="card">
+					<img src="assets/images/unknown_user.png" alt="member1" style="width:100%">
+					<div class="container">
+						<h2 class="text">Member 1</h2>
+						<p class="text">Description</p>
+						<p class="text">member@email.com</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="card">
+					<img src="assets/images/unknown_user.png" alt="member2" style="width:100%">
+					<div class="container">
+						<h2 class="text">Member 2</h2>
+						<p class="text">Description</p>
+						<p class="text">member@email.com</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="card">
+					<img src="assets/images/unknown_user.png" alt="member3" style="width:100%">
+					<div class="container">
+						<h2 class="text">Member 3</h2>
+						<p class="text">Description</p>
+						<p class="text">member@email.com</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="column">
+				<div class="card">
+					<img src="assets/images/unknown_user.png" alt="member4" style="width:100%">
+					<div class="container">
+						<h2 class="text">Member 4</h2>
+						<p class="text">Description</p>
+						<p class="text">member@email.com</p>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>
