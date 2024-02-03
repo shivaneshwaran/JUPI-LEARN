@@ -5,15 +5,15 @@ JUPI-LEARNING is an online learning platform that features different types of co
 JUPI-LEARNING uses a variety teaching method as it uses AI to teach different courses. JUPI-Learning also brings non-technical courses like business, tutorials on different languages etc. JUPI-LEARNING also destroys the myth that older citizen cannot learn coding. JUPI-LEARNING makes coding easy for every category of people.
 
 ## Prerequisites for running the server
-Your system should have python3 and django module installed.
+Your system should have python3 and flask module installed.
 
-You can install django by running
+You can install flask by running
 <pre>
-pip install django
+pip install flask
 </pre>
 
-## Starting server
-<pre>python manage.py runserver 80</pre>
+## Starting the FLASK server
+<pre>python app.py</pre>
 The above command runs the server on port 80 and can be accessed in browser with url
 <pre>localhost</pre>
 OR
