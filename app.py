@@ -7,7 +7,7 @@ app = Flask(__name__)
 def home():
     return render_template("JUPILEARNINGWEBAPP.HTML")
 
-@app.route('/about')
+@app.route('/')
 def aboutus():
     return render_template("about.html")
 
