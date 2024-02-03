@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <nav class="py-4 bg-gray-800">
+        <div class="container mx-auto flex items-center justify-between px-4">
+            <h1 class="text-2xl font-bold">JUBILEARNING</h1>
+            <ul class="text-lg font-semibold flex items-center space-x-6">
+                <li class="cursor-pointer hover:text-teal-500">Home</li>
+                <li class="cursor-pointer hover:text-teal-500">About</li>
+                <li class="cursor-pointer hover:text-teal-500">Service</li>
+                <li class="cursor-pointer hover:text-teal-500">Design</li>
+                <li class="cursor-pointer hover:text-teal-500">Contact</li>
+                <li>
+                    <button class="px-4 py-2 bg-orange-500 rounded-md text-gray-900 font-semibold hover:bg-yellow-400 hover:text-gray-900 hover:transition-colors">Login</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mx-auto py-12">
+
+        <h1 class="text-4xl font-extrabold text-center mb-12">Courses</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Web Development Fundamentals</h2>
+                    <p class="text-base">Learn the basics of web development including HTML, CSS, and JavaScript.</p>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Python Programming for Beginners</h2>
+                    <p class="text-base">Get started with Python programming language from scratch.</p>
+                </div>
+            </div>
+            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Data Science Essentials</h2>
+                    <p class="text-base">Explore the core concepts and techniques of data science and analysis.</p>
+                </div>
+            </div>
+            <!-- Add more course cards here -->
+        </div>
+
+    </main>
+
+</body>
+
+</html>
