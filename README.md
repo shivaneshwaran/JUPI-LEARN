@@ -1,4 +1,4 @@
-# JUPI-LEARN
+# JUPI-LEARN Stable Branch - maintained by goutham santhosh
 JUPI-LEARNING is an online learning platform that features different types of courses and tutorials are given by AI.
 
 ## Why JUPI-LEARNING?
