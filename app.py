@@ -1,10 +1,15 @@
-from flask import Flask, render_template
+from flask import Flask,render_template,send_from_directory
+from os import path
 
 app = Flask(__name__,static_folder="static")
 
 @app.route('/')
 def home():
     return render_template("JUPILEARNINGWEBAPP.HTML")
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route("/about")
 def about():
