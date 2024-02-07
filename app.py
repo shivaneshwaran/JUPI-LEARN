@@ -19,5 +19,9 @@ def about():
 def login():
     return render_template("login.html")
 
+@app.route("/course")
+def course():
+    return render_template("frontendai.html")
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)
