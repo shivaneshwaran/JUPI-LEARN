@@ -1,8 +1,9 @@
-from flask import Flask,render_template,send_from_directory,request,redirect
+from flask import Flask,render_template,render_template_string,send_from_directory,request
 from os import path
 import backend
 
 app = Flask(__name__,static_folder="static")
+app.secret_key = "123"
 
 '''Static page rendering'''
 @app.route('/')
@@ -34,6 +35,8 @@ def course():
 def api_signup():
 	validated,message = backend.validate_signup(request.form)
 	if validated:
-		return render_template("signup.html",alert_dialog="<script>alert('Account was created successfully!')</script>")
+		return render_template_string("<script>alert('Account was successfully created!');window.location.href='/login';</script>")
+	else:
+		return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(message))
 
 app.run(host="0.0.0.0", port=80, debug=True)

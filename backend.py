@@ -8,7 +8,7 @@ import hashlib
 #Global variables and configuation
 #Can be initialised from an encrypted file/location(Warning: Storing credentials inside the code is insecure!)
 MYSQL_HOST = "localhost" #This can be the IP address of mysql running in google cloud(eg: 210.78.43.21)
-MYSQL_USER = "root" #Default is root(May change)
+MYSQL_USER = "root"
 MYSQL_PASSWORD = "changE me p1ease!"
 MYSQL_DB = "JUPI"
 
