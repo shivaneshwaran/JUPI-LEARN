@@ -1,8 +1,10 @@
-from flask import Flask,render_template,send_from_directory
+from flask import Flask,render_template,send_from_directory,request,redirect
 from os import path
 
 app = Flask(__name__,static_folder="static")
 
+
+'''Static page rendering'''
 @app.route('/')
 def home():
 	return render_template("index.html")
@@ -26,6 +28,12 @@ def signup():
 @app.route("/course")
 def course():
 	return render_template("frontendai.html")
+
+'''POST and GET'''
+@app.route('/api_signup', methods=['POST'])
+def api_signup():
+	print(request.form)
+	return redirect("/login")
 
 if __name__ == '__main__':
 	app.run(host="0.0.0.0", port=80, debug=True)
