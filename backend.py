@@ -52,36 +52,23 @@ def validate_signup(data):
 def mysqlDB_init():
 	'''Create mysql db if it doesn't exist'''
 	dbExists = False
-	con = mys.connect(host=MYSQL_HOST,user=MYSQL_USER,password=MYSQL_PASSWORD)
-	cur = con.cursor()
-	cur.execute("show databases;")
-	for db in cur:
-		if db[0] == MYSQL_DB:
-			dbExists = True
-			break
-	if not dbExists:
-		print("Creating database {} ...".format(MYSQL_DB))
-		cur.execute("create database {};".format(MYSQL_DB))
-	con.close()
-
-def tableExists(table):
-	'''Checks whether the table already exists'''
-	tableExists = False
-	con = mys.connect(host=MYSQL_HOST,user=MYSQL_USER,password=MYSQL_PASSWORD,database=MYSQL_DB)
-	cur = con.cursor()
-	cur.execute("show tables;")
-	for t in cur:
-		if t == table:
-			tableExists = True
-			break
-	con.close()
-	if tableExists:
-		return True
-	else:
-		return False
+	try:
+		con = mys.connect(host=MYSQL_HOST,user=MYSQL_USER,password=MYSQL_PASSWORD)
+		cur = con.cursor()
+		cur.execute("show databases;")
+		for db in cur:
+			if db[0] == MYSQL_DB:
+				dbExists = True
+				break
+		if not dbExists:
+			cur.execute("create database {};".format(MYSQL_DB))
+		con.close()
+	except:
+		print("MySQL connection failed!")
+		os._exit(0)
 
 
-'''
+
 #<Main code starts here>
 #Connect to mysql server
 mysqlDB_init()
@@ -91,7 +78,7 @@ try:
 	if con.is_connected():
 		print("MySQL connection established...")
 except Exception as e:
-	error(e,"MySQL Connection error")
+	print("MySQL Connection error")
 
 cur = con.cursor()
 
@@ -101,9 +88,10 @@ cur = con.cursor()
 #	Name of user - 30 characters
 #	Email - 20 characters
 #	Passwod - stored as hash
-#	Prompt - 3000
+#	Prompt - 3000 char limit
 
-if not tableExists("users"):
-	print("Creating table users...")
+try:
 	cur.execute("create table users(user_id int primary key auto_increment, name varchar(30),email varchar(20), password char(64), prompt varchar(3000));")
-'''
+	print("Creating table users...")
+except:
+	print("Users table already exists!")
