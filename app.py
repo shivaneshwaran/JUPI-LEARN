@@ -35,6 +35,8 @@ def course():
 def api_signup():
 	if backend.validate_signup(request.form):
 		return redirect("/login")
+	else:
+		return redirect("/login")
 
 if __name__ == '__main__':
 	app.run(host="0.0.0.0", port=80, debug=True)
