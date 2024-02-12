@@ -36,6 +36,6 @@ def api_signup():
 	if backend.validate_signup(request.form):
 		return redirect("/login")
 	else:
-		return '''<script>alert("Please check whether you have given correct name and email")</script>'''
+		return '''<script>alert("Please check whether you have given correct name and email");window.location.href = "/signup";</script>'''
 
 app.run(host="0.0.0.0", port=80, debug=True)
