@@ -12,25 +12,25 @@ MYSQL_USER = "root" #Default is root(May change)
 MYSQL_PASSWORD = "changE me p1ease!"
 MYSQL_DB = "JUPI"
 
-#Functions that handle requests
+#Functions that handle requests and modifies html
 def validate_signup(data):
 	'''Validates signup information provided by the user'''
-	errors = []
+	errors = ""
 	#Name
 	if not str(data["name"]).replace(" ","SEPchar").isalpha():
-		errors.append("Name should only contain alphabets!")
+		errors += "Name should only contain alphabets!. "
 	#Email
 	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 	if not re.fullmatch(emailRegex,data["email"]):
-		errors.append("Invalid email!")
+		errors += "Invalid email!. "
 	#Password
 	password = hashlib.sha256(str(data["password"]).encode("UTF-8"))
 	'''goutham --> Call create account here'''
 
-	if errors == []:
-		return True
+	if errors == "":
+		return True,errors
 	else:
-		return False
+		return False,errors
 
 #General functions
 def error(exception,msg=""):

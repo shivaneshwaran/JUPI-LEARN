@@ -1,9 +1,8 @@
-from flask import Flask,render_template,send_from_directory,request,redirect,flash
+from flask import Flask,render_template,send_from_directory,request,redirect
 from os import path
 import backend
 
 app = Flask(__name__,static_folder="static")
-app.secret_key = "OURHARDWORKBYTHESEWORDSGUARDEDPLEASEDONTSTEAL"
 
 '''Static page rendering'''
 @app.route('/')
@@ -33,9 +32,8 @@ def course():
 '''Handling POST and GET'''
 @app.route('/api_signup', methods=['POST'])
 def api_signup():
-	if backend.validate_signup(request.form):
-		return redirect("/login")
-	else:
-		return '''<script>alert("Please check whether you have given correct name and email");window.location.href = "/signup";</script>'''
+	validated,message = backend.validate_signup(request.form)
+	if validated:
+		return render_template("signup.html",alert_dialog="<script>alert('Account was created successfully!')</script>")
 
 app.run(host="0.0.0.0", port=80, debug=True)
