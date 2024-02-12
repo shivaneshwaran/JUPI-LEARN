@@ -40,7 +40,7 @@ def validate_signup(data):
 	if not re.fullmatch(emailRegex,data["email"]):
 		errors += "Invalid email!. "
 	#Password
-	password = hashlib.sha256(str(data["password"]).encode("UTF-8"))
+	password = hashlib.sha256(str(data["password"]).encode("UTF-8")).hexdigest()
 	'''goutham --> Call create account here'''
 
 	if errors == "":
@@ -81,7 +81,8 @@ def tableExists(table):
 		return False
 
 
-'''#<Main code starts here>
+'''
+#<Main code starts here>
 #Connect to mysql server
 mysqlDB_init()
 
@@ -97,12 +98,12 @@ cur = con.cursor()
 #Creating users table
 #The table user has these fields by default(You may add/remove/modify fields or properties)
 #	User ID - auto incrementing value
-#	Username - 20 characters
-#	Passwod - stored as hash using password() func
-#	For saving password use sha2('password',512)
 #	Name of user - 30 characters
 #	Email - 20 characters
-#More information such as age,gender etc cn be added
+#	Passwod - stored as hash
+#	Prompt - 3000
+
 if not tableExists("users"):
 	print("Creating table users...")
-	cur.execute("create table users(user_id int primary key auto_increment ,username varchar(20),password char(128),name varchar(30),email varchar(20));")'''
+	cur.execute("create table users(user_id int primary key auto_increment, name varchar(30),email varchar(20), password char(64), prompt varchar(3000));")
+'''
