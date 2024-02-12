@@ -1,9 +1,9 @@
-from flask import Flask,render_template,send_from_directory,request,redirect
+from flask import Flask,render_template,send_from_directory,request,redirect,flash
 from os import path
 import backend
 
 app = Flask(__name__,static_folder="static")
-
+app.secret_key = "OURHARDWORKBYTHESEWORDSGUARDEDPLEASEDONTSTEAL"
 
 '''Static page rendering'''
 @app.route('/')
@@ -36,7 +36,6 @@ def api_signup():
 	if backend.validate_signup(request.form):
 		return redirect("/login")
 	else:
-		return redirect("/login")
+		return '''<script>alert("Please check whether you have given correct name and email")</script>'''
 
-if __name__ == '__main__':
-	app.run(host="0.0.0.0", port=80, debug=True)
+app.run(host="0.0.0.0", port=80, debug=True)
