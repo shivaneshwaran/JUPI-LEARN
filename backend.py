@@ -17,7 +17,7 @@ def validate_signup(data):
 	'''Validates signup information provided by the user'''
 	errors = []
 	#Name
-	if not str(data["name"]).replace(" ","_").isalpha():
+	if not str(data["name"]).replace(" ","SEPchar").isalpha():
 		errors.append("Name should only contain alphabets!")
 	#Email
 	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
