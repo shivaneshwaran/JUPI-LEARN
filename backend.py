@@ -1,18 +1,34 @@
 # !/usr/bin/python
-'''JUPI-LEARN backend code'''
+'''JUPI-LEARN backend code - goutham santhosh'''
 import mysql.connector as mys
 import os
 import re
 import hashlib
 
-#Global variables and configuation
-#Can be initialised from an encrypted file/location(Warning: Storing credentials inside the code is insecure!)
-MYSQL_HOST = "localhost" #This can be the IP address of mysql running in google cloud(eg: 210.78.43.21)
-MYSQL_USER = "root"
-MYSQL_PASSWORD = "changE me p1ease!"
-MYSQL_DB = "JUPI"
+env = {}
 
-#Functions that handle requests and modifies html
+try:
+	with open(".env") as f:
+		while True:
+			x = f.readline()
+			if x:
+				x = x.strip()
+				if not x.startswith("#"):
+					key,value = x.split("=")
+					env[key] = value
+			else:
+				break
+except:
+	print("Failed to locate env file")
+	os._exit(0)
+
+#Global variables and configuation(from env file)
+MYSQL_HOST = env["MYSQL_HOST"] #This can be the IP address of mysql running in google cloud(eg: 210.78.43.21)
+MYSQL_USER = env["MYSQL_USER"]
+MYSQL_PASSWORD = env["MYSQL_PASSWORD"]
+MYSQL_DB = env["MYSQL_DB"]
+
+#Functions that handle requests
 def validate_signup(data):
 	'''Validates signup information provided by the user'''
 	errors = ""
@@ -28,19 +44,9 @@ def validate_signup(data):
 	'''goutham --> Call create account here'''
 
 	if errors == "":
-		return True,errors
+		return (True,errors)
 	else:
-		return False,errors
-
-#General functions
-def error(exception,msg=""):
-	'''Print error messages in a common way'''
-	if msg == "":
-		message = "\nERROR: {}".format(exception)
-	else:
-		message = "\nERROR: {} - {}".format(msg,exception)
-	print(message)
-	os._exit(0)
+		return (False,errors)
 
 #DB functions
 def mysqlDB_init():
