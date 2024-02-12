@@ -3,21 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUPI LEARN Chatbot</title>
+    <title>Chatbot JUPI Learning</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
         }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .watermark {
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 1);
+			pointer-events: none;
+		}
 
         #study-area {
             display: flex;
             flex-direction: row;
             max-width: 1200px;
+            min-height: 600px;
             margin: 20px auto;
-            background-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -38,19 +56,20 @@
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
-            border-radius: 20px 0 0 20px;
+            border-radius: 16px;
             font-size: 14px;
         }
 
         #send-button {
-            width: 60px;
-            padding: 10px;
-            background-color: #4caf50;
-            border: none;
-            border-radius: 0 20px 20px 0;
-            color: #fff;
-            font-size: 14px;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 0px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
         }
 
         #send-button:hover {
@@ -63,17 +82,21 @@
         }
 
         h1, h2, p {
-            color: #333;
+            color: #ffffff;
         }
 
         #response {
             font-size: 16px;
             line-height: 1.6;
         }
+
+        #text {
+            color: rgb(211, 211, 211);
+        }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Welcome to JUPI LEARN</h1>
+    <div class="text"><h1>JUPI Chat Bot<h1></div>
     <div id="study-area">
         <div id="chat-container">
             <h2>JUPI LEARN Chatbot</h2>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUPI LEARNING</title>
+    <title>Home - JUPI Learning</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     
     <style>
@@ -14,7 +14,7 @@
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
@@ -22,6 +22,26 @@
             transform-style: preserve-3d;
             transition: transform 0.5s;
         }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 0px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .watermark {
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 1);
+			pointer-events: none;
+		}
     </style>
 </head>
 
@@ -31,114 +51,128 @@
         <div class="container mx-auto flex items-center justify-between px-4">
             <h1 class="text-2xl font-bold">JUPI LEARNING</h1>
             <ul class="text-lg font-semibold flex items-center space-x-6">
-                <li class="cursor-pointer font-semibold hover:bg-blue-400 hover:text-gray-900 hover:transition-colors">
+                <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">
                     <a href="/">Home</a>
                 </li>
-                <li class="font-semibold hover:bg-blue-400 hover:text-gray-900 hover:transition-colors">
+                <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">
                     <a href="/about">About</a>
                 </li>
-                <li class="cursor-pointer font-semibold hover:bg-blue-400 hover:text-gray-900 hover:transition-colors">Service</li>
-                <li class="cursor-pointer font-semibold hover:bg-blue-400 hover:text-gray-900 hover:transition-colors">Contact</li>
-                <li class="cursor-pointer font-bold hover:bg-blue-400 hover:text-gray-900 hover:transition-colors"><a href="/login">Login</a></li>
+                <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">Service</li>
+                <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">Contact</li>
+                <li class="glass-button font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors"><a href="/login">Login</a></li>
             </ul>
         </div>
     </nav>
     
     <main class="container mx-auto py-12">
-
         <h1 class="text-2xl font-semibold text-center mb-1">
             JUPI-LEARNING is an online learning platform that features different types of courses and tutorials given by AI. It is made in such a way that even 5 year olds can learn and understand the concepts easily from the courses that are provided. JUPI-LEARNING provides double verification to ensure the quality of concepts that are taught by the AI.
             <br><br>
             Why JUPI-LEARNING?
             <br>
             JUPI-LEARNING uses a variety teaching method as it uses AI to teach different courses. JUPI-Learning also brings non-technical courses like business, tutorials on different languages etc. JUPI-LEARNING also destroys the myth that older citizen cannot learn coding. JUPI-LEARNING makes coding easy for every category of people. It also breaks down complex problems to simpler ones.
-            
-            </h1>
+        </h1>
     </main>
     
     <main class="container mx-auto py-12">
-
         <h1 class="text-2xl font-extrabold text-left mb-12">Technical Courses</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">Web Development Fundamentals</h2>
                     <p class="text-base">Learn the basics of web development including HTML, CSS, and JavaScript.</p>
                 </div>
             </div>
+            </a>
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">Python Programming for Beginners</h2>
                     <p class="text-base">Get started with Python programming language from scratch.</p>
                 </div>
             </div>
+            </a>
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">Data Science Essentials</h2>
                     <p class="text-base">Explore the core concepts and techniques of data science and analysis.</p>
                 </div>
             </div>
+            </a>
             <!-- Add more course cards here -->
         </div>
-
     </main>
 
     <main class="container mx-auto py-12">
-
         <h1 class="text-2xl font-extrabold text-left mb-12">Non-Technical Courses</h1>
-
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">French</h2>
                     <p class="text-base">Become an expert in French language by exploring more</p>
                 </div>
             </div>
+            </a>
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">Chinese</h2>
                     <p class="text-base">Start learning concepts of Chinese from here</p>
                 </div>
             </div>
+            </a>
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">Spanish</h2>
                     <p class="text-base">Master Spanish language skills from this course</p>
                 </div>
             </div>
+            </a>
             <!-- Add more course cards here -->
         </div>
-
     </main>
 
     <main class="container mx-auto py-12">
+<<<<<<< HEAD:templates/JUPILEARNINGWEBAPP.HTML
 
         <h1 class="text-2xl font-extrabold text-left mb-12">Extra Courses</h1>
 
+=======
+        <h1 class="text-2xl font-extrabold text-left mb-12">Management Courses</h1>
+>>>>>>> 7fbae53c56aea81e2fa04c5734d81f77a9b2e68b:templates/index.html
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">MYSQL</h2>
                     <p class="text-base">MySQL is an open-source database product that implements the SQL standard.</p>
                 </div>
             </div>
+            </a>
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">JAVA SCRIPT</h2>
                     <p class="text-base">JavaScript is a scripting language that enables you to create dynamically updating content, control multimedia, animate images, .</p>
                 </div>
             </div>
+            </a>
+            <a href="/login">
             <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
                 <div class="p-6">
                     <h2 class="text-xl font-semibold mb-2">Web Development</h2>
                     <p class="text-base">Web development, also known as website development, refers to the tasks associated with creating, building, and maintaining websites and web applications that run online on a browser..</p>
                 </div>
             </div>
+            </a>
             <!-- Add more course cards here -->
         </div>
-
     </main>
 
+    <footer><div class="watermark">© JUPI LEARNING</div></footer>
 </body>
-
 </html>
