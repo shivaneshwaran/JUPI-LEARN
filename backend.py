@@ -1,8 +1,9 @@
 # !/usr/bin/python
 '''JUPI-LEARN backend code'''
-import requests
 import mysql.connector as mys
 import os
+import re
+import hashlib
 
 #Global variables and configuation
 #Can be initialised from an encrypted file/location(Warning: Storing credentials inside the code is insecure!)
@@ -10,6 +11,26 @@ MYSQL_HOST = "localhost" #This can be the IP address of mysql running in google 
 MYSQL_USER = "root" #Default is root(May change)
 MYSQL_PASSWORD = "changE me p1ease!"
 MYSQL_DB = "JUPI"
+
+#Functions that handle requests
+def validate_signup(data):
+	'''Validates signup information provided by the user'''
+	errors = []
+	#Name
+	if not str(data["name"]).replace(" ","_").isalpha():
+		errors.append("Name should only contain alphabets!")
+	#Email
+	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+	if not re.fullmatch(emailRegex,data["email"]):
+		errors.append("Invalid email!")
+	#Password
+	password = hashlib.sha256(str(data["password"]).encode("UTF-8"))
+	'''goutham --> Call create account here'''
+
+	if errors == []:
+		return True
+	else:
+		return False
 
 #General functions
 def error(exception,msg=""):
@@ -54,7 +75,7 @@ def tableExists(table):
 		return False
 
 
-#<Main code starts here>
+'''#<Main code starts here>
 #Connect to mysql server
 mysqlDB_init()
 
@@ -78,4 +99,4 @@ cur = con.cursor()
 #More information such as age,gender etc cn be added
 if not tableExists("users"):
 	print("Creating table users...")
-	cur.execute("create table users(user_id int primary key auto_increment ,username varchar(20),password char(128),name varchar(30),email varchar(20));")
+	cur.execute("create table users(user_id int primary key auto_increment ,username varchar(20),password char(128),name varchar(30),email varchar(20));")'''
