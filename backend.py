@@ -28,27 +28,6 @@ MYSQL_USER = env["MYSQL_USER"]
 MYSQL_PASSWORD = env["MYSQL_PASSWORD"]
 MYSQL_DB = env["MYSQL_DB"]
 
-#Functions that handle requests
-def validate_signup(data):
-	'''Validates signup information provided by the user'''
-	errors = ""
-	#Name
-	if not str(data["name"]).replace(" ","SEPchar").isalpha():
-		errors += "Name should only contain alphabets!. "
-	#Email
-	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-	if not re.fullmatch(emailRegex,data["email"]):
-		errors += "Invalid email!. "
-	#Password
-	password = hashlib.sha256(str(data["password"]).encode("UTF-8")).hexdigest()
-	'''goutham --> Call create account here'''
-
-	if errors == "":
-		return (True,errors)
-	else:
-		return (False,errors)
-
-#DB functions
 def mysqlDB_init():
 	'''Create mysql db if it doesn't exist'''
 	dbExists = False
@@ -87,11 +66,42 @@ cur = con.cursor()
 #	User ID - auto incrementing value
 #	Name of user - 30 characters
 #	Email - 20 characters
-#	Passwod - stored as hash
+#	Password - stored as hash
 #	Prompt - 3000 char limit
 
 try:
 	cur.execute("create table users(user_id int primary key auto_increment, name varchar(30),email varchar(20), password char(64), prompt varchar(3000));")
-	print("Creating table users...")
 except:
-	print("Users table already exists!")
+	pass
+
+def db():
+	db = []
+	cur.execute("select * from users;")
+	for i in cur:
+		db.append(i)
+	return db
+
+def create_account(name,email,password):
+	accountExists = False
+	for i in db():
+		e = i[2]
+
+#Functions that handle requests
+def validate_signup(data):
+	'''Validates signup information provided by the user'''
+	errors = ""
+	#Name
+	if not str(data["name"]).replace(" ","SEPchar").isalpha():
+		errors += "Name should only contain alphabets!. "
+	#Email
+	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+	if not re.fullmatch(emailRegex,data["email"]):
+		errors += "Invalid email!. "
+	#Password
+	password = hashlib.sha256(str(data["password"]).encode("UTF-8")).hexdigest()
+	'''goutham --> Call create account here'''
+
+	if errors == "":
+		return (True,errors)
+	else:
+		return (False,errors)

@@ -6,13 +6,13 @@ app = Flask(__name__,static_folder="static")
 app.secret_key = "123"
 
 '''Static page rendering'''
-@app.route('/')
-def home():
-	return render_template("index.html")
-
 @app.route('/favicon.ico')
 def favicon():
 	return send_from_directory(path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+@app.route('/')
+def home():
+	return render_template("index.html")
 
 @app.route("/about")
 def about():
