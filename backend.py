@@ -94,25 +94,40 @@ def create_account(name,email,password):
 			accountExists = True
 			break
 	if not accountExists:
-		cur.execute("insert into users (name,email,password,prompt) values('{}','{}','{}','')".format(name,email,password))
+		cur.execute("insert into users (name,email,password,prompt) values('{}','{}','{}','')".format(name,email.lower(),password))
+		con.commit()
 		return True
 	else:
 		return False
 
-def signin_account(email,password):
+def signin_account(data):
+	email = data["email"].lower()
+	password = data["password"]
 	matches = False
+	sessionID = ""
 	pHash = hashlib.sha256(str(password).encode("UTF-8")).hexdigest()
 	for i in db():
-		e = i[2]
-		if e == email:
-			p = i[3]
-			if p == pHash:
-				matches = True
+		e,p = i[2],i[3]
+		if e == email and p == pHash:
+			matches = True
+			sessionID = fernet.encrypt("{}<>{}".format(email,pHash).encode()).decode()
+			break
+	return (matches,sessionID)
+
+def validate_token(token):
+	validated = False
+	username = ""
+	try:
+		email,password = fernet.decrypt(token.encode()).decode().split("<>")
+		for i in db():
+			u,e,p = i[1],i[2],i[3]
+			if e == email and p == password:
+				validated = True
+				username = u
 				break
-	if matches:
-		return True
-	else:
-		return False
+		return (validated,username)
+	except:
+		return (False,username)
 
 #Functions that handle requests
 def validate_signup(data):
