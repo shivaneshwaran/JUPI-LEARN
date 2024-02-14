@@ -1,9 +1,8 @@
-from flask import Flask,render_template,render_template_string,send_from_directory,request
+from flask import Flask,render_template,render_template_string,send_from_directory,request,make_response
 from os import path
 import backend
 
 app = Flask(__name__,static_folder="static")
-app.secret_key = "123"
 
 '''Static page rendering'''
 @app.route('/favicon.ico')
@@ -12,7 +11,10 @@ def favicon():
 
 @app.route('/')
 def home():
-	return render_template("index.html")
+	response = make_response(render_template("index.html"))
+	if request.cookies.get("SESSIONID") is None:
+		response.set_cookie("SESSIONID",value="0")
+	return response
 
 @app.route("/about")
 def about():
@@ -38,5 +40,8 @@ def api_signup():
 		return render_template_string("<script>alert('Account was successfully created!');window.location.href='/login';</script>")
 	else:
 		return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(message))
+
+def api_signin():
+	pass
 
 app.run(host="0.0.0.0", port=80, debug=True)

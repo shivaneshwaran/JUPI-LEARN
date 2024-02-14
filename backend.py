@@ -4,6 +4,7 @@ import mysql.connector as mys
 import os
 import re
 import hashlib
+from cryptography.fernet import Fernet
 
 env = {}
 
@@ -27,6 +28,7 @@ MYSQL_HOST = env["MYSQL_HOST"] #This can be the IP address of mysql running in g
 MYSQL_USER = env["MYSQL_USER"]
 MYSQL_PASSWORD = env["MYSQL_PASSWORD"]
 MYSQL_DB = env["MYSQL_DB"]
+SECRET_KEY = (env["SECRET_KEY"] + "=").encode()
 
 def mysqlDB_init():
 	'''Create mysql db if it doesn't exist'''
@@ -49,6 +51,9 @@ def mysqlDB_init():
 
 
 #<Main code starts here>
+#Initialize encryption
+fernet = Fernet(SECRET_KEY)
+
 #Connect to mysql server
 mysqlDB_init()
 
@@ -64,13 +69,13 @@ cur = con.cursor()
 #Creating users table
 #The table user has these fields by default(You may add/remove/modify fields or properties)
 #	User ID - auto incrementing value
-#	Name of user - 30 characters
-#	Email - 20 characters
-#	Password - stored as hash
-#	Prompt - 3000 char limit
+#	Name of user - 256 characters
+#	Email - 320 characters
+#	Password - stored as hash(sha-256)
+#	Prompt - 3000 char limit(to store prompts from user)
 
 try:
-	cur.execute("create table users(user_id int primary key auto_increment, name varchar(30),email varchar(20), password char(64), prompt varchar(3000));")
+	cur.execute("create table users(user_id int primary key auto_increment, name varchar(256),email varchar(320), password char(64), prompt varchar(3000));")
 except:
 	pass
 
@@ -85,23 +90,55 @@ def create_account(name,email,password):
 	accountExists = False
 	for i in db():
 		e = i[2]
+		if e == email:
+			accountExists = True
+			break
+	if not accountExists:
+		cur.execute("insert into users (name,email,password,prompt) values('{}','{}','{}','')".format(name,email,password))
+		return True
+	else:
+		return False
+
+def signin_account(email,password):
+	matches = False
+	pHash = hashlib.sha256(str(password).encode("UTF-8")).hexdigest()
+	for i in db():
+		e = i[2]
+		if e == email:
+			p = i[3]
+			if p == pHash:
+				matches = True
+				break
+	if matches:
+		return True
+	else:
+		return False
 
 #Functions that handle requests
 def validate_signup(data):
 	'''Validates signup information provided by the user'''
 	errors = ""
 	#Name
-	if not str(data["name"]).replace(" ","SEPchar").isalpha():
+	if not str(data["name"]).replace(" ","SEP").isalpha():
 		errors += "Name should only contain alphabets!. "
 	#Email
 	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 	if not re.fullmatch(emailRegex,data["email"]):
 		errors += "Invalid email!. "
-	#Password
+	#Password hashing
 	password = hashlib.sha256(str(data["password"]).encode("UTF-8")).hexdigest()
-	'''goutham --> Call create account here'''
+
+	#Checking length of data types
+	if len(data["name"]) > 256:
+		errors += "Name should only have 256 characters!. "
+	if len(data["email"]) > 320:
+		errors += "Email should only have 320 characters!. "
 
 	if errors == "":
+		acCreated = create_account(data["name"],data["email"],password)
+		if not acCreated:
+			errors += "Account already exists!. "
+			return (False,errors)
 		return (True,errors)
 	else:
 		return (False,errors)
