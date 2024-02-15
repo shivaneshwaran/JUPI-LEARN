@@ -11,10 +11,9 @@ def error_msg(msg):
 
 def display(template,username="",course="Nothing"):
 	response = make_response(render_template(template,USERNAME=username,COURSE=course))
-	if template in ("frontendai.html",):
-		response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-		response.headers["Pragma"] = "no-cache"
-		response.headers["Expires"] = "0"
+	response.headers["Cache-Control"] = "no-cache, must-revalidate"
+	response.headers["Pragma"] = "no-cache"
+	response.headers["Expires"] = "0"
 	if request.cookies.get("SESSIONID") is None:
 		response.set_cookie("SESSIONID",value="")
 	return response
