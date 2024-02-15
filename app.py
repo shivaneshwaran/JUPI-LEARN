@@ -9,8 +9,8 @@ app = Flask(__name__,static_folder="static")
 def error_msg(msg):
 	return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(msg))
 
-def display(template,username=""):
-	response = make_response(render_template(template,USERNAME=username))
+def display(template,username="",course="Nothing"):
+	response = make_response(render_template(template,USERNAME=username,COURSE=course))
 	if template in ("frontendai.html",):
 		response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
 		response.headers["Pragma"] = "no-cache"
@@ -54,11 +54,15 @@ def login():
 def signup():
 	return display("signup.html")
 
-@app.route("/course")
+@app.route("/course",methods=["POST","GET"])
 def course():
+	try:
+		course = request.form["course"]
+	except:
+		course = "Nothing"
 	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
 	if validated:
-		return display("frontendai.html",username)
+		return display("frontendai.html",username,course)
 	else:
 		return redirect("/login")
 
@@ -70,8 +74,8 @@ def logout():
 
 
 
-'''Handling POST and GET'''
-@app.route('/api_signup', methods=['POST'])
+'''Handling Authentication'''
+@app.route("/api_signup", methods=["POST"])
 def api_signup():
 	validated,message = backend.validate_signup(request.form)
 	if validated:
@@ -79,7 +83,7 @@ def api_signup():
 	else:
 		return error_msg(message)
 
-@app.route('/api_signin', methods=['POST'])
+@app.route("/api_signin", methods=["POST"])
 def api_signin():
 	authenticated,token = backend.signin_account(request.form)
 	if authenticated:
