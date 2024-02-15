@@ -1,4 +1,5 @@
 # JUPI-LEARN
+![Image of django webserver running at port 80](screenshots/running-flask.png?raw=true)
 JUPI-LEARNING is an online learning platform that features different types of courses and tutorials are given by AI.
 
 ## Why JUPI-LEARNING?
@@ -24,6 +25,3 @@ The above command runs the server on port 80 and can be accessed in browser with
 <pre>localhost</pre>
 OR
 <pre>http://127.0.0.1</pre>
-
-If everything goes well will see a page like this
-![Image of django webserver running at port 80](screenshots/running-flask.png?raw=true)
