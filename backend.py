@@ -4,6 +4,7 @@ import mysql.connector as mys
 import os
 import re
 import hashlib
+import random
 from cryptography.fernet import Fernet
 
 env = {}
@@ -54,6 +55,22 @@ def mysqlDB_init():
 #Initialize encryption
 fernet = Fernet(SECRET_KEY)
 
+def gen_salt(length):
+	charSet = "abcdefghijklmnopqrstuvwxyz1234567890"
+	salt = ""
+	for i in range(length):
+		r1 = random.randint(0,len(charSet)-1)
+		c = charSet[r1]
+		if c.isalpha():
+			r2 = random.randint(0,1)
+			if r2 == 0:
+				salt += c
+			else:
+				salt += c.upper()
+		else:
+			salt += c
+	return salt
+
 #Connect to mysql server
 mysqlDB_init()
 
@@ -72,10 +89,11 @@ cur = con.cursor()
 #	Name of user - 256 characters
 #	Email - 320 characters
 #	Password - stored as hash(sha-256)
+#	Salt - 32 char
 #	Prompt - 3000 char limit(to store prompts from user)
 
 try:
-	cur.execute("create table users(user_id int primary key auto_increment, name varchar(256),email varchar(320), password char(64), prompt varchar(3000));")
+	cur.execute("create table users(user_id int primary key auto_increment, name varchar(256),email varchar(320), password char(64), salt char(32), prompt varchar(3000));")
 except:
 	pass
 
@@ -94,7 +112,9 @@ def create_account(name,email,password):
 			accountExists = True
 			break
 	if not accountExists:
-		cur.execute("insert into users (name,email,password,prompt) values('{}','{}','{}','')".format(name,email.lower(),password))
+		salt = gen_salt(32)
+		p = hashlib.sha256(str(password + salt).encode("UTF-8")).hexdigest()
+		cur.execute("insert into users (name,email,password,salt,prompt) values('{}','{}','{}','{}','')".format(name,email.lower(),p,salt))
 		con.commit()
 		return True
 	else:
@@ -105,9 +125,9 @@ def signin_account(data):
 	password = data["password"]
 	matches = False
 	sessionID = ""
-	pHash = hashlib.sha256(str(password).encode("UTF-8")).hexdigest()
 	for i in db():
-		e,p = i[2],i[3]
+		e,p,s = i[2],i[3],i[4]
+		pHash = hashlib.sha256(str(password + s).encode("UTF-8")).hexdigest()
 		if e == email and p == pHash:
 			matches = True
 			sessionID = fernet.encrypt("{}<>{}".format(email,pHash).encode()).decode()
@@ -140,8 +160,6 @@ def validate_signup(data):
 	emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 	if not re.fullmatch(emailRegex,data["email"]):
 		errors += "Invalid email!. "
-	#Password hashing
-	password = hashlib.sha256(str(data["password"]).encode("UTF-8")).hexdigest()
 
 	#Checking length of data types
 	if len(data["name"]) > 256:
@@ -150,7 +168,7 @@ def validate_signup(data):
 		errors += "Email should only have 320 characters!. "
 
 	if errors == "":
-		acCreated = create_account(data["name"],data["email"],password)
+		acCreated = create_account(data["name"],data["email"],data["password"])
 		if not acCreated:
 			errors += "Account already exists!. "
 			return (False,errors)
