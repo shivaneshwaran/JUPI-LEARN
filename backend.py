@@ -1,6 +1,6 @@
 # !/usr/bin/python
 '''JUPI-LEARN backend code - goutham santhosh'''
-import mysql.connector as mys
+import mysql.connector 
 import os
 import re
 import hashlib
