@@ -21,7 +21,7 @@ try:
 			else:
 				break
 except:
-	print("Failed to locate env file")
+	print("Failed to read env file")
 	os._exit(0)
 
 #Global variables and configuation(from env file)
