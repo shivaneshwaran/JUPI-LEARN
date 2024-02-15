@@ -8,7 +8,6 @@ import random
 from cryptography.fernet import Fernet
 
 env = {}
-
 try:
 	with open(".env") as f:
 		while True:
@@ -23,6 +22,7 @@ try:
 except:
 	print("Failed to read env file")
 	os._exit(0)
+
 
 #Global variables and configuation(from env file)
 MYSQL_HOST = env["MYSQL_HOST"] #This can be the IP address of mysql running in google cloud(eg: 210.78.43.21)
@@ -56,6 +56,7 @@ def mysqlDB_init():
 fernet = Fernet(SECRET_KEY)
 
 def gen_salt(length):
+	'''Generate salt for hashing password'''
 	charSet = "abcdefghijklmnopqrstuvwxyz1234567890"
 	salt = ""
 	for i in range(length):
@@ -71,6 +72,7 @@ def gen_salt(length):
 			salt += c
 	return salt
 
+
 #Connect to mysql server
 mysqlDB_init()
 
@@ -82,6 +84,7 @@ except Exception as e:
 	print("MySQL Connection error")
 
 cur = con.cursor()
+
 
 #Creating users table
 #The table user has these fields by default(You may add/remove/modify fields or properties)
@@ -105,6 +108,7 @@ def db():
 	return db
 
 def create_account(name,email,password):
+	'''Create user account'''
 	accountExists = False
 	for i in db():
 		e = i[2]
@@ -121,6 +125,7 @@ def create_account(name,email,password):
 		return False
 
 def signin_account(data):
+	'''Check whether the provided credentials are correct and authenticate'''
 	email = data["email"].lower()
 	password = data["password"]
 	matches = False
@@ -135,6 +140,7 @@ def signin_account(data):
 	return (matches,sessionID)
 
 def validate_token(token):
+	'''Validate token in the client side'''
 	validated = False
 	username = ""
 	try:
@@ -149,8 +155,10 @@ def validate_token(token):
 	except:
 		return (False,username)
 
+
 #Functions that handle requests
 def validate_signup(data):
+	'''Check and report errors in user supplied information'''
 	'''Validates signup information provided by the user'''
 	errors = ""
 	#Name

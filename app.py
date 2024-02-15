@@ -4,6 +4,8 @@ import backend
 
 app = Flask(__name__,static_folder="static")
 
+
+
 def error_msg(msg):
 	return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(msg))
 
@@ -21,6 +23,8 @@ def set_auth_token(token):
 	response = make_response(redirect("/course"))
 	response.set_cookie("SESSIONID",value=token)
 	return response
+
+
 
 '''Static page rendering'''
 @app.route('/favicon.ico')
@@ -63,6 +67,8 @@ def logout():
 	response = make_response(redirect("/login"))
 	response.set_cookie("SESSIONID",value="")
 	return response
+
+
 
 '''Handling POST and GET'''
 @app.route('/api_signup', methods=['POST'])
