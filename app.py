@@ -31,6 +31,10 @@ def favicon():
 def home():
 	return display("index.html")
 
+@app.errorhandler(404)
+def not_found(e):
+  return render_template("404.html")
+
 @app.route("/about")
 def about():
 	return display("about.html")

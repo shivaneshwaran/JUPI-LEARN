@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>404 - Not found</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+			font-family: 'Arial', sans-serif;
+			position: relative;
+		}
+
+		.container {
+			background: rgba(255, 255, 255, 0.15);
+			border-radius: 15px;
+			padding: 20px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			width: 90%;
+			max-width: 400px;
+			text-align: center;
+			perspective: 1000px;
+		}
+
+		.button {
+			width: 100%;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			background: #26D66E;
+			color: #fff;
+			cursor: pointer;
+			outline: none;
+		}
+
+		.footer {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
+			color: #fff;
+			font-size: 12px;
+		}
+
+		.watermark {
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 1);
+			pointer-events: none;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container">
+	<h1 style="color: #ffffff;">404 - Not Found</h1>
+	<h2 style="color: #ffffff;">Oops! the page you are looking for is not available on the server</h1>
+	<a href="/" class="button" style="text-decoration:none" >Return to Homepage</a>
+</div>
+
+<footer><div class="watermark">© JUPI LEARNING</div></footer>
+</body>
+</html>
