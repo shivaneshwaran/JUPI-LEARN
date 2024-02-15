@@ -12,6 +12,12 @@ You can install flask by running
 pip install flask
 </pre>
 
+## Additional modules
+<pre>
+pip install mysql-connector-python
+pip install cryptography
+</pre>
+
 ## Starting the FLASK server
 <pre>python app.py</pre>
 The above command runs the server on port 80 and can be accessed in browser with url
