@@ -1,4 +1,4 @@
-
+AI FRONTEND & BACKEND CODED BT [ S SHIVANESHWARAN ] 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,113 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI - Under Development</title>
     <style>
-        body {
-            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
-            padding: 25px;
-            font-family: Arial, sans-serif;
-        }
+        /* Your CSS styles here */
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-        }
-
-        .watermark {
+        .dialogflow-chatbot {
             position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 1);
-            pointer-events: none;
-        }
-
-        #study-area {
-            display: flex;
-            flex-direction: column; /* Change to column for smaller screens */
-            max-width: 1200px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        #chat-container, #study-content {
-            margin-bottom: 20px;
-        }
-
-        #chat-container, #study-content {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        h1, h2, p {
-            color: #ffffff;
-        }
-
-        #response {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        #text {
-            color: rgb(211, 211, 211);
-        }
-
-        #user-input {
-            width: calc(100% - 80px); /* Adjusted for smaller screens */
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 16px;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-        #send-button {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border-radius: 16px;
-            padding: 10px 20px; /* Adjusted padding */
-            margin-bottom: 0px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: background-color 0.5s;
-            font-size: 14px;
-        }
-
-        #send-button:hover {
-            background-color: #45a049;
-        }
-
-        @media only screen and (min-width: 600px) {
-            /* Adjust styles for larger screens if necessary */
-            #study-area {
-                flex-direction: row;
-            }
-
-            #chat-container {
-                flex: 1;
-                margin-right: 20px;
-            }
-
-            #study-content {
-                flex: 2;
-            }
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
         }
     </style>
 </head>
 <body>
-	   
-
     <div class="text">
         <h1>JUPITOR A.I</h1>
         <div class="text" style="text-align: right;">
@@ -133,15 +37,19 @@
         </div>
         <div id="study-content" class="glass-panel">
             <h2><a href="/about">About JUPI LEARN</a></h2>
-		<p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
-		<p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
-		<div id="response">
-
+            <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
+            <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
+            <div id="response">
                 <!-- AI responses will be displayed here -->
             </div>
         </div>
     </div>
     <div class="watermark">Under Development. Stay Connected!</div>
+
+    <!-- Dialogflow chatbot iframe -->
+    <div class="dialogflow-chatbot">
+        <iframe height="430" width="350" src="https://bot.dialogflow.com/c800d381-bd08-4a7a-b985-cffd22b6fa3a"></iframe>
+    </div>
 
     <script>
         async function sendMessage() {
@@ -168,9 +76,10 @@
 
         function displayResponse(response) {
             const responseContainer = document.getElementById('response');
-            const response
+            const responseElement = document.createElement('div');
+            responseElement.textContent = response;
+            responseContainer.appendChild(responseElement);
         }
     </script>
 </body>
 </html>
-
