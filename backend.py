@@ -1,6 +1,5 @@
+# JUPI-LEARN Backend - Created by [ S SHIVANESHWARAN ]
 
-# !/usr/bin/python
-'''JUPI-LEARN backend code - S SHIVANESHWARAN'''
 import mysql.connector as mys
 import os
 import re
@@ -9,17 +8,18 @@ import random
 import smtplib
 from cryptography.fernet import Fernet
 
+# Environment Configuration
 env = {
     "MYSQL_HOST": "localhost",
     "MYSQL_USER": "root",
     "MYSQL_PASSWORD": "user!admin_sh!v4n3Shvar4n@$$$Jup1l3arn!ng",
     "MYSQL_DB": "JUPI",
     "SECRET_KEY": "16mJRiqb4SuLzl2AZ--WODRqI6lehNeaqD00970Vuts",
-    "MAIL_ID": "your_mail_id@gmail.com",  # Add your mail ID here
-    "MAIL_PASSWORD": "your_mail_password"  # Add your mail password here
+    "MAIL_ID": "your_mail_id@gmail.com",
+    "MAIL_PASSWORD": "your_mail_password"
 }
 
-# Global variables and configuration(from env file)
+# Global variables
 MYSQL_HOST = env["MYSQL_HOST"]
 MYSQL_USER = env["MYSQL_USER"]
 MYSQL_PASSWORD = env["MYSQL_PASSWORD"]
@@ -28,8 +28,8 @@ SECRET_KEY = (env["SECRET_KEY"] + "=").encode()
 MAIL_ID = env["MAIL_ID"]
 MAIL_PASSWORD = env["MAIL_PASSWORD"]
 
+# Function to initialize MySQL database
 def mysqlDB_init():
-    '''Create MySQL db if it doesn't exist'''
     dbExists = False
     try:
         con = mys.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD)
@@ -46,16 +46,12 @@ def mysqlDB_init():
         print("MySQL connection failed!")
         os._exit(0)
 
-# Ensure that all lines following the function definition are properly indented
-# Example:
-# Other function definitions or code blocks should be at the same indentation level as the mysqlDB_init() function.
-
-# <Main code starts here>
+# Main code starts here
 # Initialize encryption
 fernet = Fernet(SECRET_KEY)
 
+# Generate salt for hashing password
 def gen_salt(length):
-    '''Generate salt for hashing password'''
     charSet = "abcdefghijklmnopqrstuvwxyz1234567890"
     salt = ""
     for i in range(length):
@@ -71,7 +67,7 @@ def gen_salt(length):
             salt += c
     return salt
 
-# Connect to MySQL server
+# Connect to MySQL server and create users table if not exists
 mysqlDB_init()
 
 try:
@@ -83,20 +79,12 @@ except Exception as e:
 
 cur = con.cursor()
 
-# Creating users table
-# The table user has these fields by default(You may add/remove/modify fields or properties)
-#    User ID - auto incrementing value
-#    Name of user - 256 characters
-#    Email - 320 characters
-#    Password - stored as hash(sha-256)
-#    Salt - 32 char
-#    Prompt - 3000 char limit(to store prompts from user)
-
 try:
-    cur.execute("create table users(user_id int primary key auto_increment, name varchar(256),email varchar(320), password char(64), salt char(32), prompt varchar(3000));")
+    cur.execute("create table users(user_id int primary key auto_increment, name varchar(256), email varchar(320), password char(64), salt char(32), prompt varchar(3000));")
 except:
     pass
 
+# Function to retrieve data from users table
 def db():
     db = []
     cur.execute("select * from users;")
@@ -104,28 +92,25 @@ def db():
         db.append(i)
     return db
 
+# Function to send welcome mail to new users
 def send_mail(address, name):
     try:
         mailServer = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         mailServer.ehlo()
         mailServer.login(MAIL_ID, MAIL_PASSWORD)
     except:
-        print("Failed connecting to gmail server")
+        print("Failed connecting to Gmail server")
     try:
         mSubject = "Welcome to JUPI-Learning"
-        mBody = "Hello {} to JUPI Learning, a groundbreaking platform dedicated to providing free, high-quality education to all. Your account has been created with username as your email address.\nSign in to start your journey\nhttps://jupilearning.app".format(name)
-        mText = """\
-From: {}
-Subject: {}
-{}
-""".format(MAIL_ID, mSubject, mBody)
-        mailServer.sendmail(MAIL_ID, [address, ], mText)
+        mBody = f"Hello {name},\n\nWelcome to JUPI Learning! Your account has been created with username as your email address.\n\nSign in to start your journey: https://jupilearning.app"
+        mText = f"From: {MAIL_ID}\nSubject: {mSubject}\n\n{mBody}"
+        mailServer.sendmail(MAIL_ID, [address], mText)
         mailServer.close()
     except:
-        print("Failed to send message to {}".format(address))
+        print(f"Failed to send message to {address}")
 
+# Function to create a new user account
 def create_account(name, email, password):
-    '''Create user account'''
     accountExists = False
     for i in db():
         e = i[2]
@@ -135,15 +120,15 @@ def create_account(name, email, password):
     if not accountExists:
         salt = gen_salt(32)
         p = hashlib.sha256(str(password + salt).encode("UTF-8")).hexdigest()
-        cur.execute("insert into users (name,email,password,salt,prompt) values('{}','{}','{}','{}','')".format(name, email.lower(), p, salt))
+        cur.execute(f"insert into users (name, email, password, salt, prompt) values ('{name}', '{email.lower()}', '{p}', '{salt}', '')")
         con.commit()
         send_mail(email.lower(), name)
         return True
     else:
         return False
 
+# Function to authenticate user sign in
 def signin_account(data):
-    '''Check whether the provided credentials are correct and authenticate'''
     email = data["email"].lower()
     password = data["password"]
     matches = False
@@ -153,12 +138,12 @@ def signin_account(data):
         pHash = hashlib.sha256(str(password + s).encode("UTF-8")).hexdigest()
         if e == email and p == pHash:
             matches = True
-            sessionID = fernet.encrypt("{}<>{}".format(email, pHash).encode()).decode()
+            sessionID = fernet.encrypt(f"{email}<{pHash}".encode()).decode()
             break
     return (matches, sessionID)
 
+# Function to validate user token
 def validate_token(token):
-    '''Validate token in the client side'''
     validated = False
     username = ""
     try:
@@ -173,25 +158,18 @@ def validate_token(token):
     except:
         return (False, username)
 
-# Functions that handle requests
+# Function to validate user signup data
 def validate_signup(data):
-    '''Check and report errors in user supplied information'''
-    '''Validates signup information provided by the user'''
     errors = ""
-    # Name
     if not str(data["name"]).replace(" ", "SEP").isalpha():
         errors += "Name should only contain alphabets!. "
-    # Email
     emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
     if not re.fullmatch(emailRegex, data["email"]):
         errors += "Invalid email!. "
-
-    # Checking length of data types
     if len(data["name"]) > 256:
         errors += "Name should only have 256 characters!. "
     if len(data["email"]) > 320:
         errors += "Email should only have 320 characters!. "
-
     if errors == "":
         acCreated = create_account(data["name"], data["email"], data["password"])
         if not acCreated:
@@ -200,3 +178,5 @@ def validate_signup(data):
         return (True, errors)
     else:
         return (False, errors)
+
+# End of Backend Code
