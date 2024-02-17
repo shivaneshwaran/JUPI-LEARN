@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('frontendai.html')
 
 @app.route('/process_input', methods=['POST'])
 def process_input():
