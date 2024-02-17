@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - JUPI Learning</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
+
     <style>
         body {
             background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
@@ -36,22 +36,33 @@
         }
 
         .watermark {
-			position: fixed;
-			bottom: 10px;
-			right: 10px;
-			font-size: 14px;
-			color: rgba(255, 255, 255, 1);
-			pointer-events: none;
-		}
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 1);
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .glass-panel {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .glass-button {
+                padding: 3px;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-900 text-white">
-    
+
     <nav class="glass-panel">
-        <div class="container mx-auto flex items-center justify-between px-4">
-            <h1 class="text-2xl font-bold">JUPI LEARNING</h1>
-            <ul class="text-lg font-semibold flex items-center space-x-6">
+        <div class="container mx-auto flex items-center justify-between px-5">
+            <h1 class="text-lg sm:text-2xl font-bold">JUPI LEARNING</h1>
+            <ul class="text-base sm:text-lg font-semibold flex items-center space-x-3 sm:space-x-6">
                 <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">
                     <a href="/">Home</a>
                 </li>
@@ -60,34 +71,35 @@
                 </li>
                 <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">Service</li>
                 <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors">Contact</li>
-                <li class="glass-button font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors"><a href="/login">Login</a></li>
+                <li class="cursor-pointer font-semibold hover:bg-white-400 hover:text-blue-400 hover:transition-colors"><a href="/login">Login</a></li>
             </ul>
         </div>
     </nav>
-    
-    <main class="container mx-auto py-12">
-        <h2 class="text-2xl font-semibold text-center mb-1">
-            JUPI-LEARNING is an online learning platform that features different types of courses and tutorials given by AI. It is made in such a way that even 5 year olds can learn and understand the concepts easily from the courses that are provided. JUPI-LEARNING provides double verification to ensure the quality of concepts that are taught by the AI.
+
+    <main class="container mx-auto py-6 sm:py-12">
+        <h2 class="text-lg sm:text-2xl font-semibold text-center mb-6 sm:mb-12">
+            JUPI-LEARNING is an online learning platform that features different types of courses and tutorials given by AI. It is made in such a way that even 5-year-olds can learn and understand the concepts easily from the courses that are provided.
             <br><br>
             Why JUPI-LEARNING?
             <br>
-            JUPI-LEARNING uses a variety teaching method as it uses AI to teach different courses. JUPI-Learning also brings non-technical courses like business, tutorials on different languages etc. JUPI-LEARNING also destroys the myth that older citizen cannot learn coding. JUPI-LEARNING makes coding easy for every category of people. It also breaks down complex problems to simpler ones.
+            JUPI-LEARNING uses a variety teaching method as it uses AI to teach different courses. JUPI-Learning also brings non-technical courses like business, tutorials on different languages, etc. JUPI-LEARNING also destroys the myth that older citizens cannot learn coding. JUPI-LEARNING makes coding easy for every category of people. It also breaks down complex problems into simpler ones.
         </h2>
     </main>
-    
-    <main class="container mx-auto py-12">
-        <h1 class="text-2xl font-extrabold text-left mb-12">Technical Courses</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+    <main class="container mx-auto py-6 sm:py-12">
+        <h1 class="text-lg sm:text-2xl font-extrabold text-left mb-6 sm:mb-12">Technical Courses</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             <form action="/course" method="post">
                 <button type="submit" name="course" value="web-development" class="button">
                     <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
-                        <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-2">Web Development Fundamentals</h2>
+                        <div class="p-4 sm:p-6">
+                            <h2 class="text-lg sm:text-xl font-semibold mb-2">Web Development Fundamentals</h2>
                             <p class="text-base">Learn the basics of web development including HTML, CSS, and JavaScript.</p>
                         </div>
-                    </div> 
+                    </div>
                 </button>
             </form>
+            <!-- Add more technical course cards here -->
             <form action="/course" method="post">
                 <button type="submit" name="course" value="python-programming" class="button">
                     <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
@@ -108,19 +120,19 @@
                     </div>
                 </button>
             </form>
-            <!-- Add more course cards here -->
+            
         </div>
     </main>
 
-    <main class="container mx-auto py-12">
-        <h1 class="text-2xl font-extrabold text-left mb-12">Non-Technical Courses</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <main class="container mx-auto py-6 sm:py-12">
+        <h1 class="text-lg sm:text-2xl font-extrabold text-left mb-6 sm:mb-12">Non-Technical Courses</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             <form action="/course" method="post">
                 <button type="submit" name="course" value="lang-french" class="button">
                     <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
-                        <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-2">French</h2>
-                            <p class="text-base">Become an expert in French language by exploring more</p>
+                        <div class="p-4 sm:p-6">
+                            <h2 class="text-lg sm:text-xl font-semibold mb-2">French</h2>
+                            <p class="text-base">Become an expert in the French language by exploring more.</p>
                         </div>
                     </div>
                 </button>
@@ -145,24 +157,24 @@
                     </div>
                 </button>
             </form>
-            <!-- Add more course cards here -->
+            <!-- Add more non-technical course cards here -->
         </div>
     </main>
 
-    <main class="container mx-auto py-12">
-
-        <h1 class="text-2xl font-extrabold text-left mb-12">Extra Courses</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <main class="container mx-auto py-6 sm:py-12">
+        <h1 class="text-lg sm:text-2xl font-extrabold text-left mb-6 sm:mb-12">Extra Courses</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             <form action="/course" method="post">
                 <button type="submit" name="course" value="mysql" class="button">
                     <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
-                        <div class="p-6">
-                            <h2 class="text-xl font-semibold mb-2">MySQL</h2>
+                        <div class="p-4 sm:p-6">
+                            <h2 class="text-lg sm:text-xl font-semibold mb-2">MySQL</h2>
                             <p class="text-base">MySQL is an open-source database product that implements the SQL standard.</p>
                         </div>
                     </div>
                 </button>
             </form>
+            <!-- Add more extra course cards here -->
             <form action="/course" method="post">
                 <button type="submit" name="course" value="javascript" class="button">
                     <div class="glass-panel rounded-lg overflow-hidden shadow-lg">
@@ -186,7 +198,10 @@
             <!-- Add more course cards here -->
         </div>
     </main>
+        </div>
+    </main>
 
     <footer><div class="watermark">© JUPI LEARNING</div></footer>
 </body>
+
 </html>

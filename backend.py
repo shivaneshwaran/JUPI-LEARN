@@ -45,8 +45,8 @@ def mysqlDB_init():
 		if not dbExists:
 			cur.execute("create database {};".format(MYSQL_DB))
 		con.close()
-	except:
-		print("MySQL connection failed!")
+	except Exception as e:
+		print(e)
 		os._exit(0)
 
 
