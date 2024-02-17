@@ -3,194 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini AI for Python Courses</title>
-    <style>
-        /* Your CSS styles here */
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            margin: 0;
-        }
-
-        .user-info {
-            text-align: right;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .user-info a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 10px;
-        }
-
-        .content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .chat-container,
-        .python-content {
-            flex: 0 0 48%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .chat-container h2,
-        .python-content h2 {
-            margin-top: 0;
-            color: #333;
-        }
-
-        .watermark {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: rgba(0, 0, 0, 0.5);
-        }
-
-        .dialogflow-chatbot {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-
-        .input-container {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        #user-input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        #send-button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 14px;
-        }
-
-        #send-button:hover {
-            background-color: #0056b3;
-        }
-
-        @media only screen and (max-width: 768px) {
-            .content {
-                flex-direction: column;
-            }
-
-            .chat-container,
-            .python-content {
-                width: 100%;
-            }
-        }
-    </style>
+    <title>JUPITER PRIVATE SHIVA LTD</title>
 </head>
 <body>
-    <div class="header">
-        <h1>Gemini AI for Python Courses</h1>
-    </div>
-    <div class="container">
-        <div class="user-info">
-            <h2>Hello {{USERNAME}} | <a href="/" style="color:#fff">Home</a> <a href="/logout" style="color:#fff">Logout</a></h2>
+    <div>
+        <h1>JUPITER PRIVATE SHIVA LTD</h1>
+        <div id="conversation">
+            <!-- Display conversation here -->
         </div>
-        <h2>Selected course - "Python Programming"</h2>
-        <div class="content">
-            <div class="chat-container">
-                <h2>Gemini AI Chatbot</h2>
-                <div id="chat-messages">
-                    <!-- Chat messages will be displayed here -->
-                </div>
-                <div class="input-container">
-                    <input type="text" id="user-input" placeholder="Type your message...">
-                    <button id="send-button" onclick="sendMessage()">Send</button>
-                </div>
-            </div>
-            <div class="python-content">
-                <h2>Python Course Content</h2>
-                <p>Welcome to the Python programming course! Below are some resources to help you get started:</p>
-                <ul>
-                    <li><a href="#">Python Basics Tutorial</a></li>
-                    <li><a href="#">Intermediate Python Concepts</a></li>
-                    <li><a href="#">Advanced Python Programming</a></li>
-                </ul>
-                <p>Feel free to explore the provided resources and ask Gemini AI any questions you may have!</p>
-            </div>
-        </div>
+        <input type="text" id="user_input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
     </div>
-    <div class="watermark">Under Development. Stay Connected!</div>
-
-    <!-- Dialogflow chatbot iframe -->
-    <div class="dialogflow-chatbot">
-        <iframe height="430" width="350" src="https://bot.dialogflow.com/c800d381-bd08-4a7a-b985-cffd22b6fa3a"></iframe>
-    </div>
-
     <script>
-        async function sendMessage() {
-            const userInput = document.getElementById('user-input').value.trim();
-            if (userInput === '') return;
-
-            displayMessage('You: ' + userInput);
-
-            // Call the function to send the user message to the chatbot and retrieve the response
-            // For demonstration purposes, the implementation of this function is omitted
-
-            // Display AI response in the response area
-            displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-
-            document.getElementById('user-input').value = '';
-        }
-
-        function displayMessage(message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-        }
-
-        function displayResponse(response) {
-            const responseContainer = document.getElementById('response');
-            const responseElement = document.createElement('div');
-            responseElement.textContent = response;
-            responseContainer.appendChild(responseElement);
+        function sendMessage() {
+            var user_input = document.getElementById('user_input').value;
+            document.getElementById('conversation').innerHTML += '<p>User: ' + user_input + '</p>';
+            fetch('/process_input', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'user_input=' + user_input
+            }).then(function(response) {
+                // Handle response
+            });
         }
     </script>
 </body>
