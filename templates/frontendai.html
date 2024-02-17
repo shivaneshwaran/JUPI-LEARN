@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI - Under Development</title>
+    <title>Gemini AI for Python Courses</title>
     <style>
+        /* Your CSS styles here */
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -50,7 +52,7 @@
         }
 
         .chat-container,
-        .study-content {
+        .python-content {
             flex: 0 0 48%;
             background-color: #fff;
             padding: 20px;
@@ -59,7 +61,7 @@
         }
 
         .chat-container h2,
-        .study-content h2 {
+        .python-content h2 {
             margin-top: 0;
             color: #333;
         }
@@ -116,7 +118,7 @@
             }
 
             .chat-container,
-            .study-content {
+            .python-content {
                 width: 100%;
             }
         }
@@ -124,16 +126,16 @@
 </head>
 <body>
     <div class="header">
-        <h1>JUPITOR A.I</h1>
+        <h1>Gemini AI for Python Courses</h1>
     </div>
     <div class="container">
         <div class="user-info">
             <h2>Hello {{USERNAME}} | <a href="/" style="color:#fff">Home</a> <a href="/logout" style="color:#fff">Logout</a></h2>
         </div>
-        <h2>Selected course - "{{COURSE}}"</h2>
+        <h2>Selected course - "Python Programming"</h2>
         <div class="content">
             <div class="chat-container">
-                <h2>JUPI LEARN Chatbot</h2>
+                <h2>Gemini AI Chatbot</h2>
                 <div id="chat-messages">
                     <!-- Chat messages will be displayed here -->
                 </div>
@@ -142,21 +144,25 @@
                     <button id="send-button" onclick="sendMessage()">Send</button>
                 </div>
             </div>
-            <div class="study-content">
-                <h2><a href="/about">About JUPI LEARN</a></h2>
-                <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
-                <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
-                <div id="response">
-                    <!-- AI responses will be displayed here -->
-                </div>
+            <div class="python-content">
+                <h2>Python Course Content</h2>
+                <p>Welcome to the Python programming course! Below are some resources to help you get started:</p>
+                <ul>
+                    <li><a href="#">Python Basics Tutorial</a></li>
+                    <li><a href="#">Intermediate Python Concepts</a></li>
+                    <li><a href="#">Advanced Python Programming</a></li>
+                </ul>
+                <p>Feel free to explore the provided resources and ask Gemini AI any questions you may have!</p>
             </div>
         </div>
     </div>
     <div class="watermark">Under Development. Stay Connected!</div>
-    <!-- Google Dialogflow chatbot iframe -->
+
+    <!-- Dialogflow chatbot iframe -->
     <div class="dialogflow-chatbot">
         <iframe height="430" width="350" src="https://bot.dialogflow.com/c800d381-bd08-4a7a-b985-cffd22b6fa3a"></iframe>
     </div>
+
     <script>
         async function sendMessage() {
             const userInput = document.getElementById('user-input').value.trim();
@@ -164,10 +170,10 @@
 
             displayMessage('You: ' + userInput);
 
-            // Here, you can send the user's message to Dialogflow for processing
-            // Upon receiving the response from Dialogflow, display it in the response area
+            // Call the function to send the user message to the chatbot and retrieve the response
+            // For demonstration purposes, the implementation of this function is omitted
 
-            // For demonstration purposes, a static response is displayed
+            // Display AI response in the response area
             displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 
             document.getElementById('user-input').value = '';
