@@ -13,10 +13,12 @@ env = {
     "MYSQL_USER": "root",
     "MYSQL_PASSWORD": "user!admin_sh!v4n3Shvar4n@$$$Jup1l3arn!ng",
     "MYSQL_DB": "JUPI",
-    "SECRET_KEY": "16mJRiqb4SuLzl2AZ--WODRqI6lehNeaqD00970Vuts"
+    "SECRET_KEY": "16mJRiqb4SuLzl2AZ--WODRqI6lehNeaqD00970Vuts",
+    "MAIL_ID": "your_mail_id@gmail.com",  # Add your mail ID here
+    "MAIL_PASSWORD": "your_mail_password"  # Add your mail password here
 }
 
-#Global variables and configuration(from env file)
+# Global variables and configuration(from env file)
 MYSQL_HOST = env["MYSQL_HOST"]
 MYSQL_USER = env["MYSQL_USER"]
 MYSQL_PASSWORD = env["MYSQL_PASSWORD"]
@@ -24,20 +26,12 @@ MYSQL_DB = env["MYSQL_DB"]
 SECRET_KEY = (env["SECRET_KEY"] + "=").encode()
 MAIL_ID = env["MAIL_ID"]
 MAIL_PASSWORD = env["MAIL_PASSWORD"]
-# Check if the MAIL_ID key exists in the env dictionary
-MAIL_ID = env.get("MAIL_ID")
-if MAIL_ID is None:
-    print("Error: MAIL_ID environment variable is not set")
-    # Handle the error gracefully, such as exiting the script or using a default value
-    # You can choose an appropriate action based on your application's requirements
-else:
-    # Continue with your script
 
 def mysqlDB_init():
     '''Create MySQL db if it doesn't exist'''
     dbExists = False
     try:
-        con = mys.connect(host=MYSQL_HOST,user=MYSQL_USER,password=MYSQL_PASSWORD)
+        con = mys.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD)
         cur = con.cursor()
         cur.execute("show databases;")
         for db in cur:
@@ -55,11 +49,8 @@ def mysqlDB_init():
 # Example:
 # Other function definitions or code blocks should be at the same indentation level as the mysqlDB_init() function.
 
-
-
-
-#<Main code starts here>
-#Initialize encryption
+# <Main code starts here>
+# Initialize encryption
 fernet = Fernet(SECRET_KEY)
 
 def gen_salt(length):
@@ -67,10 +58,10 @@ def gen_salt(length):
     charSet = "abcdefghijklmnopqrstuvwxyz1234567890"
     salt = ""
     for i in range(length):
-        r1 = random.randint(0,len(charSet)-1)
+        r1 = random.randint(0, len(charSet) - 1)
         c = charSet[r1]
         if c.isalpha():
-            r2 = random.randint(0,1)
+            r2 = random.randint(0, 1)
             if r2 == 0:
                 salt += c
             else:
@@ -79,8 +70,7 @@ def gen_salt(length):
             salt += c
     return salt
 
-
-#Connect to MySQL server
+# Connect to MySQL server
 mysqlDB_init()
 
 try:
@@ -92,8 +82,8 @@ except Exception as e:
 
 cur = con.cursor()
 
-#Creating users table
-#The table user has these fields by default(You may add/remove/modify fields or properties)
+# Creating users table
+# The table user has these fields by default(You may add/remove/modify fields or properties)
 #    User ID - auto incrementing value
 #    Name of user - 256 characters
 #    Email - 320 characters
@@ -182,21 +172,20 @@ def validate_token(token):
     except:
         return (False, username)
 
-
-#Functions that handle requests
+# Functions that handle requests
 def validate_signup(data):
     '''Check and report errors in user supplied information'''
     '''Validates signup information provided by the user'''
     errors = ""
-    #Name
+    # Name
     if not str(data["name"]).replace(" ", "SEP").isalpha():
         errors += "Name should only contain alphabets!. "
-    #Email
+    # Email
     emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
     if not re.fullmatch(emailRegex, data["email"]):
         errors += "Invalid email!. "
 
-    #Checking length of data types
+    # Checking length of data types
     if len(data["name"]) > 256:
         errors += "Name should only have 256 characters!. "
     if len(data["email"]) > 320:
