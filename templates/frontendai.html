@@ -5,6 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Interface</title>
     <style>
+        body {
+            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.5s;
+        }
+
         #chat-box {
             width: 400px;
             margin: auto;
@@ -13,6 +30,7 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         #messages {
             height: 300px;
             overflow-y: scroll;
@@ -21,76 +39,74 @@
             padding: 10px;
             border-radius: 5px;
         }
+
         #user-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            width: calc(100% - 80px); /* Adjusted for smaller screens */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+            font-size: 14px;
+            margin-right: 10px;
         }
+
         #send-btn {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 10px 20px; /* Adjusted padding */
+            margin-bottom: 0px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background-color 0.5s;
+            font-size: 14px;
             cursor: pointer;
         }
+
         #send-btn:hover {
-            background-color: #0056b3;
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div id="chat-box">
+    <div id="chat-box" class="glass-panel">
         <div id="messages"></div>
         <input type="text" id="user-input" placeholder="Type your message...">
-        <button id="send-btn">Send</button>
+        <button id="send-btn" onclick="sendMessage()">Send</button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const messagesContainer = document.getElementById('messages');
-            const userInput = document.getElementById('user-input');
-            const sendBtn = document.getElementById('send-btn');
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value.trim();
+            if (userInput === '') return;
 
-            // Function to add message to the chat box
-            function addMessage(role, text) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.classList.add(role);
-                messageElement.innerText = text;
-                messagesContainer.appendChild(messageElement);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
-            }
+            displayMessage('You: ' + userInput);
 
-            // Send user message to backend and display response
-            sendBtn.addEventListener('click', function () {
-                const userMessage = userInput.value.trim();
-                if (userMessage !== '') {
-                    addMessage('user', userMessage);
-                    userInput.value = ''; // Clear input field
+            // Call the function to send the user message to the chatbot and retrieve the response
+            // For demonstration purposes, the implementation of this function is omitted
 
-                    // Send message to backend
-                    fetch('/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ history: [], user_input: userMessage })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        const modelResponse = data.response;
-                        addMessage('model', modelResponse);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        addMessage('model', 'Error occurred. Please try again.');
-                    });
-                }
-            });
-        });
+            // Display AI response in the response area
+            displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+
+            document.getElementById('user-input').value = '';
+        }
+
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
+        }
+
+        function displayResponse(response) {
+            const responseContainer = document.getElementById('messages');
+            const responseElement = document.createElement('div');
+            responseElement.textContent = response;
+            responseElement.style.color = '#fff';
+            responseContainer.appendChild(responseElement);
+            responseContainer.scrollTop = responseContainer.scrollHeight; // Scroll to bottom
+        }
     </script>
 </body>
 </html>
