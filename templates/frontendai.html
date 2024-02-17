@@ -10,54 +10,63 @@
             padding: 25px;
             font-family: Arial, sans-serif;
             color: #ffffff;
+            margin: 0;
+            overflow: hidden;
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+        #chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
             padding: 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: transform 0.5s;
-        }
-
-        #chat-box {
-            width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         #messages {
-            height: 300px;
+            flex: 1;
             overflow-y: scroll;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: rgba(0, 0, 0, 0.2); /* Adjusted background color */
+        }
+
+        .message {
+            margin-bottom: 5px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            max-width: 70%;
+        }
+
+        .user {
+            background-color: rgba(255, 255, 255, 0.2);
+            align-self: flex-start;
+            color: #ffffff;
+        }
+
+        .model {
+            background-color: rgba(255, 255, 255, 0.1);
+            align-self: flex-end;
         }
 
         #user-input {
-            width: calc(100% - 80px); /* Adjusted for smaller screens */
+            width: calc(100% - 80px);
             padding: 10px;
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 16px;
             font-size: 14px;
             margin-right: 10px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
         }
 
         #send-btn {
             background: rgba(255, 255, 255, 0.1);
             color: #ffffff;
             border-radius: 16px;
-            padding: 10px 20px; /* Adjusted padding */
+            padding: 10px 20px;
             margin-bottom: 0px;
-            backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: background-color 0.5s;
             font-size: 14px;
@@ -70,51 +79,52 @@
     </style>
 </head>
 <body>
-    <div id="chat-box" class="glass-panel">
-        <div class="text">
-            <h1>JUPITOR A.I</h1>
-            <div class="text" style="text-align: right;">
-                <h2>Hello {{USERNAME}} | <a href="/" style="color:#ffffff">Home</a> <a href="/logout" style="color:#ffffff">Logout</a></h2>
-            </div>
-        </div>
-        <h2>Selected course - "{{COURSE}}"</h2>
+    <div id="chat-container">
         <div id="messages"></div>
         <input type="text" id="user-input" placeholder="Type your message...">
-        <button id="send-btn" onclick="sendMessage()">Send</button>
+        <button id="send-btn">Send</button>
     </div>
 
     <script>
-        async function sendMessage() {
-            const userInput = document.getElementById('user-input').value.trim();
-            if (userInput === '') return;
+        document.addEventListener('DOMContentLoaded', function () {
+            const messagesContainer = document.getElementById('messages');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
 
-            displayMessage('You: ' + userInput);
+            sendBtn.addEventListener('click', function () {
+                const userMessage = userInput.value.trim();
+                if (userMessage !== '') {
+                    addMessage('user', userMessage);
+                    userInput.value = '';
 
-            // Call the function to send the user message to the chatbot and retrieve the response
-            // For demonstration purposes, the implementation of this function is omitted
+                    fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ history: [], user_input: userMessage })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const modelResponse = data.response;
+                        addMessage('model', modelResponse);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        addMessage('model', 'Error occurred. Please try again.');
+                    });
+                }
+            });
 
-            // Display AI response in the response area
-            displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-
-            document.getElementById('user-input').value = '';
-        }
-
-        function displayMessage(message) {
-            const chatMessages = document.getElementById('messages');
-            const messageElement = document.createElement('div');
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll to bottom
-        }
-
-        function displayResponse(response) {
-            const responseContainer = document.getElementById('messages');
-            const responseElement = document.createElement('div');
-            responseElement.textContent = response;
-            responseElement.style.color = '#fff';
-            responseContainer.appendChild(responseElement);
-            responseContainer.scrollTop = responseContainer.scrollHeight; // Scroll to bottom
-        }
+            function addMessage(role, text) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(role);
+                messageElement.innerText = text;
+                messagesContainer.appendChild(messageElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        });
     </script>
 </body>
 </html>
