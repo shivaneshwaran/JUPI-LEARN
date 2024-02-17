@@ -3,30 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUPITER PRIVATE SHIVA LTD</title>
+    <title>Chatbot JUPI Learning</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        .watermark {
+			position: fixed;
+			bottom: 10px;
+			right: 10px;
+			font-size: 14px;
+			color: rgba(255, 255, 255, 1);
+			pointer-events: none;
+		}
+
+        #study-area {
+            display: flex;
+            flex-direction: row;
+            max-width: 1200px;
+            min-height: 600px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        #chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        #chat-messages {
+            margin-bottom: 20px;
+        }
+
+        #user-input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        #send-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 4px;
+            margin-bottom: 0px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
+        }
+
+        #send-button:hover {
+            background-color: #45a049;
+        }
+
+        #study-content {
+            flex: 2;
+            padding: 20px;
+        }
+
+        h1, h2, p {
+            color: #ffffff;
+        }
+
+        #response {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        #text {
+            color: rgb(211, 211, 211);
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h1>JUPITER PRIVATE SHIVA LTD</h1>
-        <div id="conversation">
-            <!-- Display conversation here -->
+    <div class="text"><h1>JUPI Chat Bot<h1></div>
+    <div id="study-area">
+        <div id="chat-container">
+            <h2>JUPI LEARN Chatbot</h2>
+            <div id="chat-messages">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div id="input-container">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-button" onclick="sendMessage()">Send</button>
+            </div>
         </div>
-        <input type="text" id="user_input" placeholder="Type your message...">
-        <button onclick="sendMessage()">Send</button>
+        <div id="study-content">
+            <!-- Add your study content here -->
+            <h2>About JUPI LEARN</h2>
+            <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
+            <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
+            <div id="response">
+                <!-- AI responses will be displayed here -->
+            </div>
+        </div>
     </div>
+
     <script>
-        function sendMessage() {
-            var user_input = document.getElementById('user_input').value;
-            document.getElementById('conversation').innerHTML += '<p>User: ' + user_input + '</p>';
-            fetch('/process_input', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'user_input=' + user_input
-            }).then(function(response) {
-                // Handle response
-            });
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value.trim();
+            if (userInput === '') return;
+
+            displayMessage('You: ' + userInput);
+
+            // Call the function to send the user message to the chatbot and retrieve the response
+            // For demonstration purposes, the implementation of this function is omitted
+
+            // Display AI response in the response area
+            displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+
+            document.getElementById('user-input').value = '';
+        }
+
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        function displayResponse(response) {
+            const responseContainer = document.getElementById('response');
+            const response
         }
     </script>
 </body>
