@@ -24,6 +24,14 @@ MYSQL_DB = env["MYSQL_DB"]
 SECRET_KEY = (env["SECRET_KEY"] + "=").encode()
 MAIL_ID = env["MAIL_ID"]
 MAIL_PASSWORD = env["MAIL_PASSWORD"]
+# Check if the MAIL_ID key exists in the env dictionary
+MAIL_ID = env.get("MAIL_ID")
+if MAIL_ID is None:
+    print("Error: MAIL_ID environment variable is not set")
+    # Handle the error gracefully, such as exiting the script or using a default value
+    # You can choose an appropriate action based on your application's requirements
+else:
+    # Continue with your script
 
 def mysqlDB_init():
     '''Create MySQL db if it doesn't exist'''
