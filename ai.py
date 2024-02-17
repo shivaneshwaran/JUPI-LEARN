@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configure Generative AI with your API key
-genai.configure(api_key="YOUR_API_KEY")
+genai.configure(api_key="AIzaSyDkYqYhYt3d6t63VgMJRgJby7bZJ5KViXc")
 
 # Set up your conversational model
 generation_config = {
