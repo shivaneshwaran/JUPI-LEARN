@@ -51,6 +51,11 @@ def mysqlDB_init():
         print("MySQL connection failed!")
         os._exit(0)
 
+# Ensure that all lines following the function definition are properly indented
+# Example:
+# Other function definitions or code blocks should be at the same indentation level as the mysqlDB_init() function.
+
+
 
 
 #<Main code starts here>
