@@ -3,94 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Interface</title>
+    <title>Chatbot JUPI Learning - Under Development</title>
     <style>
-        #chat-box {
-            width: 400px;
-            margin: auto;
+        body {
+            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+            padding: 25px;
+            font-family: Arial, sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.5s;
         }
-        #messages {
-            height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
+
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 1);
+            pointer-events: none;
         }
+
+        #study-area {
+            display: flex;
+            flex-direction: column; /* Change to column for smaller screens */
+            max-width: 1200px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        #chat-container, #study-content {
+            margin-bottom: 20px;
+        }
+
+        #chat-container, #study-content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1, h2, p {
+            color: #ffffff;
+        }
+
+        #response {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        #text {
+            color: rgb(211, 211, 211);
+        }
+
         #user-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            width: calc(100% - 80px); /* Adjusted for smaller screens */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 16px;
+            font-size: 14px;
+            margin-right: 10px;
         }
-        #send-btn {
-            padding: 8px 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+
+        #send-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border-radius: 16px;
+            padding: 10px 20px; /* Adjusted padding */
+            margin-bottom: 0px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: background-color 0.5s;
+            font-size: 14px;
         }
-        #send-btn:hover {
-            background-color: #0056b3;
+
+        #send-button:hover {
+            background-color: #45a049;
+        }
+
+        @media only screen and (min-width: 600px) {
+            /* Adjust styles for larger screens if necessary */
+            #study-area {
+                flex-direction: row;
+            }
+
+            #chat-container {
+                flex: 1;
+                margin-right: 20px;
+            }
+
+            #study-content {
+                flex: 2;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="chat-box">
-        <div id="messages"></div>
-        <input type="text" id="user-input" placeholder="Type your message...">
-        <button id="send-btn">Send</button>
+    <div class="text">
+        <h1>JUPITOR A.I</h1>
+        <div class="text" style="text-align: right;">
+            <h2>Hello {{USERNAME}} | <a href="/" style="color:#ffffff">Home</a> <a href="/logout" style="color:#ffffff">Logout</a></h2>
+        </div>
     </div>
+    <h2>Selected course - "{{COURSE}}"</h2>
+    <div id="study-area">
+        <div id="chat-container" class="glass-panel">
+            <h2>JUPI LEARN Chatbot</h2>
+            <div id="chat-messages">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div id="input-container">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-button" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+        <div id="study-content" class="glass-panel">
+            <h2>About JUPI LEARN</h2>
+            <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
+            <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
+            <div id="response">
+                <!-- AI responses will be displayed here -->
+            </div>
+        </div>
+    </div>
+    <div class="watermark">Under Development. Stay Connected!</div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const messagesContainer = document.getElementById('messages');
-            const userInput = document.getElementById('user-input');
-            const sendBtn = document.getElementById('send-btn');
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value.trim();
+            if (userInput === '') return;
 
-            // Function to add message to the chat box
-            function addMessage(role, text) {
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.classList.add(role);
-                messageElement.innerText = text;
-                messagesContainer.appendChild(messageElement);
-                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
-            }
+            displayMessage('You: ' + userInput);
 
-            // Send user message to backend and display response
-            sendBtn.addEventListener('click', function () {
-                const userMessage = userInput.value.trim();
-                if (userMessage !== '') {
-                    addMessage('user', userMessage);
-                    userInput.value = ''; // Clear input field
+            // Call the function to send the user message to the chatbot and retrieve the response
+            // For demonstration purposes, the implementation of this function is omitted
 
-                    // Send message to backend
-                    fetch('/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ history: [], user_input: userMessage })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        const modelResponse = data.response;
-                        addMessage('model', modelResponse);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        addMessage('model', 'Error occurred. Please try again.');
-                    });
-                }
-            });
-        });
+            // Display AI response in the response area
+            displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
+
+            document.getElementById('user-input').value = '';
+        }
+
+        function displayMessage(message) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        function displayResponse(response) {
+            const responseContainer = document.getElementById('response');
+            const response
+        }
     </script>
 </body>
 </html>
