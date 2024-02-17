@@ -1,171 +1,32 @@
-// CODED BY S SHIVANESHWARAN
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot JUPI Learning - Under Development</title>
-    <style>
-        body {
-            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
-            padding: 25px;
-            font-family: Arial, sans-serif;
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transform-style: preserve-3d;
-            transition: transform 0.5s;
-        }
-
-        .watermark {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-size: 14px;
-            color: rgba(255, 255, 255, 1);
-            pointer-events: none;
-        }
-
-        #study-area {
-            display: flex;
-            flex-direction: column; /* Change to column for smaller screens */
-            max-width: 1200px;
-            margin: 20px auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            padding: 20px;
-        }
-
-        #chat-container, #study-content {
-            margin-bottom: 20px;
-        }
-
-        #chat-container, #study-content {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        h1, h2, p {
-            color: #ffffff;
-        }
-
-        #response {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        #text {
-            color: rgb(211, 211, 211);
-        }
-
-        #user-input {
-            width: calc(100% - 80px); /* Adjusted for smaller screens */
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 16px;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-        #send-button {
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffffff;
-            border-radius: 16px;
-            padding: 10px 20px; /* Adjusted padding */
-            margin-bottom: 0px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: background-color 0.5s;
-            font-size: 14px;
-        }
-
-        #send-button:hover {
-            background-color: #45a049;
-        }
-
-        @media only screen and (min-width: 600px) {
-            /* Adjust styles for larger screens if necessary */
-            #study-area {
-                flex-direction: row;
-            }
-
-            #chat-container {
-                flex: 1;
-                margin-right: 20px;
-            }
-
-            #study-content {
-                flex: 2;
-            }
-        }
-    </style>
+    <title>JUPITER PRIVATE SHIVA LTD</title>
 </head>
 <body>
-    <div class="text">
-        <h1>JUPITOR A.I</h1>
-        <div class="text" style="text-align: right;">
-            <h2>Hello {{USERNAME}} | <a href="/" style="color:#ffffff">Home</a> <a href="/logout" style="color:#ffffff">Logout</a></h2>
+    <div>
+        <h1>JUPITER PRIVATE SHIVA LTD</h1>
+        <div id="conversation">
+            <!-- Display conversation here -->
         </div>
+        <input type="text" id="user_input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
     </div>
-    <h2>Selected course - "{{COURSE}}"</h2>
-    <div id="study-area">
-        <div id="chat-container" class="glass-panel">
-            <h2>JUPI LEARN Chatbot</h2>
-            <div id="chat-messages">
-                <!-- Chat messages will be displayed here -->
-            </div>
-            <div id="input-container">
-                <input type="text" id="user-input" placeholder="Type your message...">
-                <button id="send-button" onclick="sendMessage()">Send</button>
-            </div>
-        </div>
-        <div id="study-content" class="glass-panel">
-            <h2>About JUPI LEARN</h2>
-            <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
-            <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
-            <div id="response">
-                <!-- AI responses will be displayed here -->
-            </div>
-        </div>
-    </div>
-    <div class="watermark">Under Development. Stay Connected!</div>
-
     <script>
-        async function sendMessage() {
-            const userInput = document.getElementById('user-input').value.trim();
-            if (userInput === '') return;
-
-            displayMessage('You: ' + userInput);
-
-            // Call the function to send the user message to the chatbot and retrieve the response
-            // For demonstration purposes, the implementation of this function is omitted
-
-            // Display AI response in the response area
-            displayResponse('AI: ');
-
-            document.getElementById('user-input').value = '';
-        }
-
-        function displayMessage(message) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.textContent = message;
-            chatMessages.appendChild(messageElement);
-        }
-
-        function displayResponse(response) {
-            const responseContainer = document.getElementById('response');
-            const response
+        function sendMessage() {
+            var user_input = document.getElementById('user_input').value;
+            document.getElementById('conversation').innerHTML += '<p>User: ' + user_input + '</p>';
+            fetch('/process_input', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'user_input=' + user_input
+            }).then(function(response) {
+                // Handle response
+            });
         }
     </script>
 </body>
