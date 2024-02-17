@@ -37,7 +37,7 @@ def mysqlDB_init():
     '''Create MySQL db if it doesn't exist'''
     dbExists = False
     try:
-        con = mys.connect(host=MYSQL_HOST, user=MYSQL_USER, password=MYSQL_PASSWORD)
+        con = mys.connect(host=MYSQL_HOST,user=MYSQL_USER,password=MYSQL_PASSWORD)
         cur = con.cursor()
         cur.execute("show databases;")
         for db in cur:
@@ -50,6 +50,7 @@ def mysqlDB_init():
     except:
         print("MySQL connection failed!")
         os._exit(0)
+
 
 
 #<Main code starts here>
