@@ -1,31 +1,45 @@
-from flask import Flask, render_template, request
-import speech_recognition as sr
-import pyttsx3
-import threading
-import keyboard
-import subprocess
-import webbrowser
-import spacy
-import datetime
-import pytz
-import wikipedia
-import requests
-import json
-import re
-import openai
-
+from flask import Flask, request, jsonify, render_template
+import google.generativeai as genai
 
 app = Flask(__name__)
+
+# Configure Generative AI with your API key
+genai.configure(api_key="YOUR_API_KEY")
+
+# Set up your conversational model
+generation_config = {
+    "temperature": 0.9,
+    "top_p": 1,
+    "top_k": 1,
+    "max_output_tokens": 2048,
+}
+
+safety_settings = [
+    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+]
+
+model = genai.GenerativeModel(
+    model_name="gemini-1.0-pro", generation_config=generation_config, safety_settings=safety_settings
+)
 
 @app.route('/')
 def index():
     return render_template('frontendai.html')
 
-@app.route('/process_input', methods=['POST'])
-def process_input():
-    user_input = request.form['user_input']
-    # Process the user input here
-    return 'Success'  # Return the response as needed
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.json
+    history = data.get('history', [])
+    user_input = data.get('user_input', 'hello')  # Default to 'hello' if no input is provided
+
+    convo = model.start_chat(history=history)
+    convo.send_message(user_input)
+    response = convo.last.text
+
+    return jsonify({'response': response})
 
 if __name__ == '__main__':
     app.run(debug=True)

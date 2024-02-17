@@ -3,31 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUPITER PRIVATE SHIVA LTD</title>
+    <title>Chat Interface</title>
+    <style>
+        #chat-box {
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        #messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #user-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        #send-btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #send-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h1>JUPITER PRIVATE SHIVA LTD</h1>
-        <div id="conversation">
-            <!-- Display conversation here -->
-        </div>
-        <input type="text" id="user_input" placeholder="Type your message...">
-        <button onclick="sendMessage()">Send</button>
+    <div id="chat-box">
+        <div id="messages"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-btn">Send</button>
     </div>
+
     <script>
-        function sendMessage() {
-            var user_input = document.getElementById('user_input').value;
-            document.getElementById('conversation').innerHTML += '<p>User: ' + user_input + '</p>';
-            fetch('/process_input', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'user_input=' + user_input
-            }).then(function(response) {
-                // Handle response
+        document.addEventListener('DOMContentLoaded', function () {
+            const messagesContainer = document.getElementById('messages');
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+
+            // Function to add message to the chat box
+            function addMessage(role, text) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add(role);
+                messageElement.innerText = text;
+                messagesContainer.appendChild(messageElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
+            }
+
+            // Send user message to backend and display response
+            sendBtn.addEventListener('click', function () {
+                const userMessage = userInput.value.trim();
+                if (userMessage !== '') {
+                    addMessage('user', userMessage);
+                    userInput.value = ''; // Clear input field
+
+                    // Send message to backend
+                    fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ history: [], user_input: userMessage })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const modelResponse = data.response;
+                        addMessage('model', modelResponse);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        addMessage('model', 'Error occurred. Please try again.');
+                    });
+                }
             });
-        }
+        });
     </script>
 </body>
 </html>
