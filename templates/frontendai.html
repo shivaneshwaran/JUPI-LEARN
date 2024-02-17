@@ -1,4 +1,3 @@
-AI FRONTEND & BACKEND CODED BT [ S SHIVANESHWARAN ] 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,72 @@ AI FRONTEND & BACKEND CODED BT [ S SHIVANESHWARAN ]
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI - Under Development</title>
     <style>
-        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .user-info {
+            text-align: right;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .user-info a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .chat-container,
+        .study-content {
+            flex: 0 0 48%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chat-container h2,
+        .study-content h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.5);
+        }
 
         .dialogflow-chatbot {
             position: fixed;
@@ -14,43 +78,85 @@ AI FRONTEND & BACKEND CODED BT [ S SHIVANESHWARAN ]
             right: 20px;
             z-index: 9999;
         }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        #send-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        #send-button:hover {
+            background-color: #0056b3;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .chat-container,
+            .study-content {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="text">
+    <div class="header">
         <h1>JUPITOR A.I</h1>
-        <div class="text" style="text-align: right;">
-            <h2>Hello {{USERNAME}} | <a href="/" style="color:#ffffff">Home</a> <a href="/logout" style="color:#ffffff">Logout</a></h2>
-        </div>
     </div>
-    <h2>Selected course - "{{COURSE}}"</h2>
-    <div id="study-area">
-        <div id="chat-container" class="glass-panel">
-            <h2>JUPI LEARN Chatbot</h2>
-            <div id="chat-messages">
-                <!-- Chat messages will be displayed here -->
-            </div>
-            <div id="input-container">
-                <input type="text" id="user-input" placeholder="Type your message...">
-                <button id="send-button" onclick="sendMessage()">Send</button>
-            </div>
+    <div class="container">
+        <div class="user-info">
+            <h2>Hello {{USERNAME}} | <a href="/" style="color:#fff">Home</a> <a href="/logout" style="color:#fff">Logout</a></h2>
         </div>
-        <div id="study-content" class="glass-panel">
-            <h2><a href="/about">About JUPI LEARN</a></h2>
-            <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
-            <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
-            <div id="response">
-                <!-- AI responses will be displayed here -->
+        <h2>Selected course - "{{COURSE}}"</h2>
+        <div class="content">
+            <div class="chat-container">
+                <h2>JUPI LEARN Chatbot</h2>
+                <div id="chat-messages">
+                    <!-- Chat messages will be displayed here -->
+                </div>
+                <div class="input-container">
+                    <input type="text" id="user-input" placeholder="Type your message...">
+                    <button id="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+            <div class="study-content">
+                <h2><a href="/about">About JUPI LEARN</a></h2>
+                <p>JUPI LEARN is a revolutionary platform designed to make learning more interactive and engaging. With our innovative chatbot feature, you can now access educational resources and get instant assistance with your studies.</p>
+                <p>Explore our vast collection of learning materials and embark on an exciting journey of discovery!</p>
+                <div id="response">
+                    <!-- AI responses will be displayed here -->
+                </div>
             </div>
         </div>
     </div>
     <div class="watermark">Under Development. Stay Connected!</div>
-
-    <!-- Dialogflow chatbot iframe -->
+    <!-- Google Dialogflow chatbot iframe -->
     <div class="dialogflow-chatbot">
         <iframe height="430" width="350" src="https://bot.dialogflow.com/c800d381-bd08-4a7a-b985-cffd22b6fa3a"></iframe>
     </div>
-
     <script>
         async function sendMessage() {
             const userInput = document.getElementById('user-input').value.trim();
@@ -58,10 +164,10 @@ AI FRONTEND & BACKEND CODED BT [ S SHIVANESHWARAN ]
 
             displayMessage('You: ' + userInput);
 
-            // Call the function to send the user message to the chatbot and retrieve the response
-            // For demonstration purposes, the implementation of this function is omitted
+            // Here, you can send the user's message to Dialogflow for processing
+            // Upon receiving the response from Dialogflow, display it in the response area
 
-            // Display AI response in the response area
+            // For demonstration purposes, a static response is displayed
             displayResponse('AI: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
 
             document.getElementById('user-input').value = '';
