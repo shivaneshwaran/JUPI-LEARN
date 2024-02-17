@@ -62,7 +62,7 @@ def course():
 		course = "Nothing"
 	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
 	if validated:
-		return display("ai.py",username,course)
+		return display("frontendai.html",username,course)
 	else:
 		return redirect("/login")
 
