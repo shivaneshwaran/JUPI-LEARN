@@ -1,6 +1,7 @@
 #NEW APP.PY WRITED FROM THE OLD CODE BY "GAUTHM SANTHOSH" OPTIMISED BY SHIVANESHWARAN
 from flask import Flask,render_template,render_template_string,send_from_directory,request,make_response,redirect
 from os import path
+import requests
 import backend
 
 app = Flask(__name__,static_folder="static")
@@ -54,17 +55,28 @@ def login():
 def signup():
 	return display("signup.html")
 
-@app.route("/course",methods=["POST","GET"])
+@app.route("/course", methods=["POST", "GET"])
 def course():
-	try:
-		course = request.form["course"]
-	except:
-		course = "Nothing"
-	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
-	if validated:
-		return display("frontendai.html",username,course)
-	else:
-		return redirect("/login")
+    try:
+        course = request.form["course"]
+    except:
+        course = "Nothing"
+    validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
+    
+    if validated:
+        # Make a request to the frontend server to fetch frontend.html
+        frontend_url = "http://34.67.83.7:5000/frontend.html"
+        response = requests.get(frontend_url)
+        
+        if response.status_code == 200:
+            # If the request is successful, return the HTML content
+            return response.text
+        else:
+            # Handle the case where the request to frontend fails
+            return "Error: Failed to fetch frontend.html"
+    else:
+        return redirect("/login")
+
 
 @app.route("/logout")
 def logout():
