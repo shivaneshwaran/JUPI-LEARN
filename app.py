@@ -5,16 +5,21 @@ import re
 import hashlib
 import google.generativeai as genai
 from flask_cors import CORS
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__, static_folder="static")
-app.secret_key = "OURHARDWORKBYTHESEWORDSGUARDEDPLEASEDONTSTEAL"
+app.secret_key = os.getenv("SECRET_KEY")
 CORS(app)
 
-#Global variables and configuration for the database
-MYSQL_HOST = "localhost"
-MYSQL_USER = "root"
-MYSQL_PASSWORD = "changE me p1ease!"
-MYSQL_DB = "JUPI"
+# Global variables and configuration for the database
+MYSQL_HOST = os.getenv("MYSQL_HOST")
+MYSQL_USER = os.getenv("MYSQL_USER")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_DB = os.getenv("MYSQL_DB")
 
 # Configure Generative AI with your API key
 genai.configure(api_key="your_api_key_here")
@@ -86,23 +91,22 @@ def chat():
 def validate_signup(data):
     '''Validates signup information provided by the user'''
     errors = []
-    #Name
-    if not str(data["name"]).replace(" ","SEPchar").isalpha():
+    # Name
+    if not str(data["name"]).replace(" ", "").isalpha():
         errors.append("Name should only contain alphabets!")
-    #Email
+    # Email
     emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-    if not re.fullmatch(emailRegex,data["email"]):
+    if not re.fullmatch(emailRegex, data["email"]):
         errors.append("Invalid email!")
-    #Password
-    password = hashlib.sha256(str(data["password"]).encode("UTF-8"))
-    '''Call create account here'''
+    # Password
+    if len(data["password"]) < 6:
+        errors.append("Password should be at least 6 characters long")
 
-    if errors == []:
-        return True
-    else:
+    if errors:
         return False
+    return True
 
 # Initialize MySQL DB and perform other database operations as needed
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=1983, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
