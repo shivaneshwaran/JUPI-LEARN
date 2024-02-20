@@ -79,7 +79,7 @@ except:
 # Function to retrieve data from users table
 def db():
     db = []
-    cur.execute("select * from users;")
+    cur.execute("SELECT * FROM users;")
     for i in cur:
         db.append(i)
     return db
