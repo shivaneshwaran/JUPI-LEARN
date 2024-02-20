@@ -57,21 +57,16 @@ def course():
         course = request.form["course"]
     except:
         course = "Nothing"
+    
     validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
     
     if validated:
-        # Make a request to the frontend server to fetch frontend.html
-        frontend_url = "http://34.67.83.7:5000"
-        response = requests.get(frontend_url)
-        
-        if response.status_code == 200:
-            # If the request is successful, return the HTML content
-            return response.text
-        else:
-            # Handle the case where the request to frontend fails
-            return "Error: Failed to fetch frontend.html"
+        # If the user is authenticated, render the frontend AI page
+        return render_template("frontendai.html")
     else:
+        # If the user is not authenticated, redirect to the login page
         return redirect("/login")
+
 
 @app.route("/logout")
 def logout():
