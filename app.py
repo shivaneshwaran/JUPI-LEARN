@@ -1,8 +1,9 @@
 from flask import Flask, render_template, render_template_string, send_from_directory, request, make_response, redirect, jsonify
 from os import path
 import requests
-from flask_cors import CORS
+import backend
 import google.generativeai as genai
+from flask_cors import CORS
 
 app = Flask(__name__, static_folder="static")
 CORS(app)
