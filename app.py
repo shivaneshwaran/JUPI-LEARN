@@ -73,7 +73,7 @@ def course():
     
     if validated:
         # Make a request to the frontend server to fetch frontend.html
-        frontendai_url = "http://127.0.0.1:5000"
+        frontendai_url = "http://34.67.83.7:5000"
         response = requests.get(frontendai_url)
         
         if response.status_code == 200:
