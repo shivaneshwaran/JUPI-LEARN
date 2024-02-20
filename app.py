@@ -1,80 +1,111 @@
-from flask import Flask, render_template, send_from_directory, request, redirect, flash, jsonify
+from flask import Flask, render_template, render_template_string, send_from_directory, request, make_response, redirect, jsonify
 from os import path
-import mysql.connector as mys
-import re
-import hashlib
+import requests
+import backend
 import google.generativeai as genai
-from flask_cors import CORS
-from dotenv import load_dotenv
-import os
-
-# Load environment variables from .env file
-load_dotenv()
 
 app = Flask(__name__, static_folder="static")
-app.secret_key = os.getenv("SECRET_KEY")
-CORS(app)
 
-# Global variables and configuration for the database
-MYSQL_HOST = os.getenv("MYSQL_HOST")
-MYSQL_USER = os.getenv("MYSQL_USER")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_DB = os.getenv("MYSQL_DB")
+def error_msg(msg):
+    return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(msg))
 
-# Configure Generative AI with your API key
-genai.configure(api_key="your_api_key_here")
+def display(template, username="", course="Nothing"):
+    response = make_response(render_template(template, USERNAME=username, COURSE=course))
+    response.headers["Cache-Control"] = "no-cache, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    if request.cookies.get("SESSIONID") is None:
+        response.set_cookie("SESSIONID", value="")
+    return response
 
-# Set up your conversational model
-generation_config = {
-    "temperature": 0.9,
-    "top_p": 1,
-    "top_k": 1,
-    "max_output_tokens": 2048,
-}
-
-safety_settings = [
-    {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-    {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-    {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-    {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-]
-
-model = genai.GenerativeModel(model_name="gemini-1.0-pro",
-                              generation_config=generation_config,
-                              safety_settings=safety_settings)
+def set_auth_token(token):
+    response = make_response(redirect("/course"))
+    response.set_cookie("SESSIONID", value=token)
+    return response
 
 '''Static page rendering'''
-@app.route('/')
-def home():
-    return render_template("index.html")
-
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(path.join(app.root_path, "static"), "favicon.ico", mimetype="image/vnd.microsoft.icon")
+
+@app.route('/')
+def home():
+    return display("index.html")
+
+@app.errorhandler(404)
+def not_found(e):
+    return render_template("404.html")
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return display("about.html")
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
+        return redirect("/course")
+    else:
+        return display("login.html")
 
 @app.route("/signup")
 def signup():
-    return render_template("signup.html")
+    return display("signup.html")
 
-@app.route("/course")
+@app.route("/course", methods=["POST", "GET"])
 def course():
-    return render_template("frontendai.html")
-
-'''Handling POST and GET'''
-@app.route('/api_signup', methods=['POST'])
-def api_signup():
-    if validate_signup(request.form):
-        return redirect("/login")
+    try:
+        course = request.form["course"]
+    except:
+        course = "Nothing"
+    validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
+    
+    if validated:
+        # Make a request to the frontend server to fetch frontend.html
+        frontend_url = "http://34.67.83.7:5000"
+        response = requests.get(frontend_url)
+        
+        if response.status_code == 200:
+            # If the request is successful, return the HTML content
+            return response.text
+        else:
+            # Handle the case where the request to frontend fails
+            return "Error: Failed to fetch frontend.html"
     else:
-        return '''<script>alert("Please check whether you have given correct name and email");window.location.href = "/signup";</script>'''
+        return redirect("/login")
+
+@app.route("/logout")
+def logout():
+    response = make_response(redirect("/login"))
+    response.set_cookie("SESSIONID", value="")
+    return response
+
+'''Handling Authentication'''
+@app.route("/api_signup", methods=["POST"])
+def api_signup():
+    validated, message = backend.validate_signup(request.form)
+    if validated:
+        genai.configure(api_key="AIzaSyDkYqYhYt3d6t63VgMJRgJby7bZJ5KViXc")
+
+        # Set up your conversational model
+        generation_config = {
+            "temperature": 0.9,
+            "top_p": 1,
+            "top_k": 1,
+            "max_output_tokens": 2048,
+        }
+
+        safety_settings = [
+            {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+            {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+            {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+            {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
+        ]
+
+        model = genai.GenerativeModel(model_name="gemini-1.0-pro",
+                                      generation_config=generation_config,
+                                      safety_settings=safety_settings)
+    else:
+        return error_msg(message)
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -88,25 +119,13 @@ def chat():
 
     return jsonify({'response': response})
 
-def validate_signup(data):
-    '''Validates signup information provided by the user'''
-    errors = []
-    # Name
-    if not str(data["name"]).replace(" ", "").isalpha():
-        errors.append("Name should only contain alphabets!")
-    # Email
-    emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-    if not re.fullmatch(emailRegex, data["email"]):
-        errors.append("Invalid email!")
-    # Password
-    if len(data["password"]) < 6:
-        errors.append("Password should be at least 6 characters long")
+@app.route("/api_signin", methods=["POST"])
+def api_signin():
+    authenticated, token = backend.signin_account(request.form)
+    if authenticated:
+        return set_auth_token(token)
+    else:
+        return error_msg("Invalid username or password!")
 
-    if errors:
-        return False
-    return True
-
-# Initialize MySQL DB and perform other database operations as needed
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=1983, debug=True)
