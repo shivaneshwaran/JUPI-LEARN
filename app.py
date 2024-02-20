@@ -3,7 +3,7 @@ from os import path
 import requests
 import backend
 import google.generativeai as genai
-from ai import app as ai_app
+
 
 app = Flask(__name__, static_folder="static")
 
@@ -54,9 +54,7 @@ def login():
 def signup():
     return display("signup.html")
 
-@app.route("/course", methods=["POST", "GET"])
-def course():
-    return ai_app.jupiai()  # Call the index route of the ai Flask app
+
 
 @app.route("/logout")
 def logout():
@@ -64,6 +62,29 @@ def logout():
     response.set_cookie("SESSIONID", value="")
     return response
 
+
+@app.route("/course", methods=["POST", "GET"])
+def course():
+    try:
+        course = request.form["course"]
+    except:
+        course = "Nothing"
+        
+    validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
+    
+    if validated:
+        # Make a request to the frontend server to fetch frontend.html
+        frontend_url = "http://frontend_server_address:port/frontend.html"
+        response = requests.get(frontend_url)
+        
+        if response.status_code == 200:
+            # If the request is successful, return the HTML content
+            return response.text
+        else:
+            # Handle the case where the request to frontend fails
+            return "Error: Failed to fetch frontend.html"
+    else:
+        return redirect("/login")
 
 
 

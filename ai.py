@@ -6,6 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
 # Configure Generative AI with your API key
 genai.configure(api_key="AIzaSyDkYqYhYt3d6t63VgMJRgJby7bZJ5KViXc")
 
@@ -29,7 +30,7 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                               safety_settings=safety_settings)
 
 @app.route('/')
-def jupiai():
+def index():
     return render_template('frontendai.html')
 
 @app.route('/chat', methods=['POST'])
