@@ -64,15 +64,8 @@ def course():
     validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
     
     if validated:
-        # Make a request to the frontend server to fetch frontend.html
-        response = requests.get("http://34.67.83.7:5000/")
-        
-        if response.status_code == 200:
-            # If the request is successful, return the HTML content
-            return response.text
-        else:
-            # Handle the case where the request to frontend fails
-            return "Error: Failed to fetch frontend.html"
+        # Redirect the user to the specified page
+        return redirect("http://34.67.83.7:5000/")
     else:
         return redirect("/404")
 
