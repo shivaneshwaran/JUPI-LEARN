@@ -105,4 +105,4 @@ def validate_signup(data):
 # Initialize MySQL DB and perform other database operations as needed
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=80, debug=True)
+    app.run(host="0.0.0.0", port=1983, debug=True)
