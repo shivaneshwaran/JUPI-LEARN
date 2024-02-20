@@ -65,7 +65,7 @@ def course():
     
     if validated:
         # Make a request to the frontend server to fetch frontend.html
-        return redirect("http://34.67.83.7:5000/", code=302)
+        response = requests.get("http://34.67.83.7:5000/")
         
         if response.status_code == 200:
             # If the request is successful, return the HTML content
