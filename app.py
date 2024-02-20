@@ -93,12 +93,12 @@ def course():
         course = "Nothing"
     validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
 
-	if validated:
-		# If the user is validated, render the frontendai.html template
-		return render_template('frontendai.html')
-	else:
-		# If the user is not validated, redirect to the login page
-		return redirect("/404")
+    if validated:
+        # If the user is validated, render the frontendai.html template
+        return render_template('frontendai.html')
+    else:
+        # If the user is not validated, redirect to the login page
+        return redirect("/login")
 
 
 
