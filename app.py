@@ -1,8 +1,7 @@
 from flask import Flask, render_template, render_template_string, send_from_directory, request, make_response, redirect, jsonify
 from os import path
 import requests
-import backend
-import google.generativeai as genai
+
 
 
 app = Flask(__name__, static_folder="static")
@@ -84,7 +83,7 @@ def course():
             # Handle the case where the request to frontend fails
             return "Error: Failed to fetch frontend.html"
     else:
-        return redirect("/login")
+        return redirect("/404")
 
 
 
