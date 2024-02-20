@@ -73,7 +73,7 @@ def course():
     
     if validated:
         # Make a request to the frontend server to fetch frontend.html
-        frontend_url = "http:ai.jupilearning.app"
+        frontend_url = "http://127.0.0.1:5000"
         response = requests.get(frontend_url)
         
         if response.status_code == 200:
