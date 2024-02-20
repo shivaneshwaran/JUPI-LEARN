@@ -98,7 +98,7 @@ def course():
         return render_template('frontendai.html')
     else:
         # If the user is not validated, redirect to the login page
-        return redirect("/login")
+        return redirect("/404")
 
 
 
