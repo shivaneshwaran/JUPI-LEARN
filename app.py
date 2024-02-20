@@ -103,4 +103,4 @@ def api_signin():
 	else:
 		return error_msg("Invalid username or password!")
 
-app.run(host="0.0.0.0", port=80, debug=True)
+app.run(host="0.0.0.0", port=1983, debug=True)
