@@ -3,7 +3,7 @@ from os import path
 import requests
 import backend
 import google.generativeai as genai
-import ai 
+from ai import app as ai_app
 
 app = Flask(__name__, static_folder="static")
 
@@ -56,9 +56,7 @@ def signup():
 
 @app.route("/course", methods=["POST", "GET"])
 def course():
-    from ai import app
-    return render_template("frontendai.html")
-
+    return ai_app.index()  # Call the index route of the ai Flask app
 
 @app.route("/logout")
 def logout():
