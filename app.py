@@ -56,7 +56,7 @@ def signup():
 
 @app.route("/course", methods=["POST", "GET"])
 def course():
-    return ai_app.index()  # Call the index route of the ai Flask app
+    return ai_app.jupiai()  # Call the index route of the ai Flask app
 
 @app.route("/logout")
 def logout():

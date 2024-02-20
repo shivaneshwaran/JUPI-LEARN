@@ -29,7 +29,7 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                               safety_settings=safety_settings)
 
 @app.route('/')
-def index():
+def jupiai():
     return render_template('frontendai.html')
 
 @app.route('/chat', methods=['POST'])
@@ -45,5 +45,5 @@ def chat():
     return jsonify({'response': response})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True)
 
