@@ -1,14 +1,23 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory, make_response, redirect, render_template_string
+from flask import Flask, render_template, send_from_directory, request, redirect, flash, jsonify
 from os import path
-import backend
+import mysql.connector as mys
+import re
+import hashlib
 import google.generativeai as genai
 from flask_cors import CORS
 
 app = Flask(__name__, static_folder="static")
+app.secret_key = "OURHARDWORKBYTHESEWORDSGUARDEDPLEASEDONTSTEAL"
 CORS(app)
 
+#Global variables and configuration for the database
+MYSQL_HOST = "localhost"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "changE me p1ease!"
+MYSQL_DB = "JUPI"
+
 # Configure Generative AI with your API key
-genai.configure(api_key="AIzaSyDkYqYhYt3d6t63VgMJRgJby7bZJ5KViXc")
+genai.configure(api_key="your_api_key_here")
 
 # Set up your conversational model
 generation_config = {
@@ -29,30 +38,38 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
 
-def error_msg(msg):
-    return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(msg))
-
-def display(template, username="", course="Nothing"):
-    response = make_response(render_template(template, USERNAME=username, COURSE=course))
-    response.headers["Cache-Control"] = "no-cache, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = "0"
-    if request.cookies.get("SESSIONID") is None:
-        response.set_cookie("SESSIONID", value="")
-    return response
-
-def set_auth_token(token):
-    response = make_response(redirect("/course"))
-    response.set_cookie("SESSIONID", value=token)
-    return response
+'''Static page rendering'''
+@app.route('/')
+def home():
+    return render_template("index.html")
 
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(path.join(app.root_path, "static"), "favicon.ico", mimetype="image/vnd.microsoft.icon")
+    return send_from_directory(path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-@app.route('/')
-def index():
-    return render_template('frontendai.html')
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/signup")
+def signup():
+    return render_template("signup.html")
+
+@app.route("/course")
+def course():
+    return render_template("frontendai.html")
+
+'''Handling POST and GET'''
+@app.route('/api_signup', methods=['POST'])
+def api_signup():
+    if validate_signup(request.form):
+        return redirect("/login")
+    else:
+        return '''<script>alert("Please check whether you have given correct name and email");window.location.href = "/signup";</script>'''
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -66,54 +83,26 @@ def chat():
 
     return jsonify({'response': response})
 
-@app.route('/about')
-def about():
-    return display("about.html")
+def validate_signup(data):
+    '''Validates signup information provided by the user'''
+    errors = []
+    #Name
+    if not str(data["name"]).replace(" ","SEPchar").isalpha():
+        errors.append("Name should only contain alphabets!")
+    #Email
+    emailRegex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+    if not re.fullmatch(emailRegex,data["email"]):
+        errors.append("Invalid email!")
+    #Password
+    password = hashlib.sha256(str(data["password"]).encode("UTF-8"))
+    '''Call create account here'''
 
-@app.route('/login')
-def login():
-    return display("login.html")
-
-@app.route('/signup')
-def signup():
-    return display("signup.html")
-
-@app.route('/course', methods=["POST", "GET"])
-def course():
-    try:
-        course = request.form["course"]
-    except:
-        course = "Nothing"
-    validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
-
-    if validated:
-        # If the user is validated, render the frontendai.html template
-        return render_template('frontendai.html')
+    if errors == []:
+        return True
     else:
-        # If the user is not validated, redirect to the login page
-        return redirect("/login")
+        return False
 
-@app.route('/logout')
-def logout():
-    response = make_response(redirect("/login"))
-    response.set_cookie("SESSIONID", value="")
-    return response
-
-@app.route('/api_signup', methods=["POST"])
-def api_signup():
-    validated, message = backend.validate_signup(request.form)
-    if validated:
-        return render_template_string("<script>alert('Account was successfully created!');window.location.href='/login';</script>")
-    else:
-        return error_msg(message)
-
-@app.route('/api_signin', methods=["POST"])
-def api_signin():
-    authenticated, token = backend.signin_account(request.form)
-    if authenticated:
-        return set_auth_token(token)
-    else:
-        return error_msg("Invalid username or password!")
+# Initialize MySQL DB and perform other database operations as needed
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=1983, debug=True)
+    app.run(host="0.0.0.0", port=80, debug=True)
