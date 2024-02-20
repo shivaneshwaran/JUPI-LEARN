@@ -7,26 +7,18 @@ import hashlib
 import random
 import smtplib
 from cryptography.fernet import Fernet
-
-# Environment Configuration
-env = {
-    "MYSQL_HOST": "localhost",
-    "MYSQL_USER": "root",
-    "MYSQL_PASSWORD": "user!admin_sh!v4n3Shvar4n@$$$Jup1l3arn!ng",
-    "MYSQL_DB": "JUPI",
-    "SECRET_KEY": "16mJRiqb4SuLzl2AZ--WODRqI6lehNeaqD00970Vuts",
-    "MAIL_ID": "your_mail_id@gmail.com",
-    "MAIL_PASSWORD": "your_mail_password"
-}
+from dotenv import load_dotenv
+import os
 
 # Global variables
-MYSQL_HOST = env["MYSQL_HOST"]
-MYSQL_USER = env["MYSQL_USER"]
-MYSQL_PASSWORD = env["MYSQL_PASSWORD"]
-MYSQL_DB = env["MYSQL_DB"]
-SECRET_KEY = (env["SECRET_KEY"] + "=").encode()
-MAIL_ID = env["MAIL_ID"]
-MAIL_PASSWORD = env["MAIL_PASSWORD"]
+load_dotenv()
+MYSQL_HOST = os.getenv("MYSQL_HOST")
+MYSQL_USER = os.getenv("MYSQL_USER")
+MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+MYSQL_DB = os.getenv("MYSQL_DB")
+SECRET_KEY = os.getenv("SECRET_KEY")
+MAIL_ID = os.getenv("MAIL_ID")
+MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
 
 # Function to initialize MySQL database
 def mysqlDB_init():
