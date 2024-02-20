@@ -93,19 +93,13 @@ def course():
         course = "Nothing"
     validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
 
-    if validated:
-        # Make a request to the frontend server to fetch frontend.html
-        frontend_url = "localhost:5000"
-        response = requests.get(frontend_url)
+	if validated:
+		# If the user is validated, render the frontendai.html template
+		return render_template('frontendai.html')
+	else:
+		# If the user is not validated, redirect to the login page
+		return redirect("/404")
 
-        if response.status_code == 200:
-            # If the request is successful, return the HTML content
-            return response.text
-        else:
-            # Handle the case where the request to frontend fails
-            return "Error: Failed to fetch frontend.html"
-    else:
-        return redirect("/login")
 
 
 @app.route("/logout")
