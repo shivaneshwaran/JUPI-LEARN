@@ -24,6 +24,16 @@ def set_auth_token(token):
     return response
 
 '''Static page rendering'''
+@app.route("/api_signin", methods=["POST"])
+def api_signin():
+    authenticated, token = backend.signin_account(request.form)
+    if authenticated:
+        # Set the SESSIONID cookie upon successful login
+        response = make_response(redirect("/course"))
+        response.set_cookie("SESSIONID", value=token)
+        return response
+    else:
+        return error_msg("Invalid username or password!")
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(path.join(app.root_path, "static"), "favicon.ico", mimetype="image/vnd.microsoft.icon")
