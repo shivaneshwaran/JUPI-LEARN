@@ -42,9 +42,7 @@ def not_found(e):
 @app.route("/about")
 def about():
 	return display("about.html")
-@app.route("/contact")
-def about():
-	return render_template("contact.html")
+
 
 
 
