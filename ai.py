@@ -31,6 +31,9 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
 
+def error_msg(msg):
+	return render_template_string("<script>alert('Error: {}');window.history.back();</script>".format(msg))
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -85,16 +88,35 @@ def course():
 		course = "Nothing"
 	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
 	if validated:
-		return display("frontendai.html",username,course)
+		return redirect("/")
 	else:
 		return redirect("/login")
 @app.route("/logout")
+
 def logout():
 	response = make_response(redirect("/login"))
 	response.set_cookie("SESSIONID",value="")
 	return response
+@app.route("/signup")
+def signup():
+	return display("signup.html")
 
+'''Handling Authentication'''
+@app.route("/api_signup", methods=["POST"])
+def api_signup():
+	validated,message = backend.validate_signup(request.form)
+	if validated:
+		return render_template_string("<script>alert('Account was successfully created!');window.location.href='/login';</script>")
+	else:
+		return error_msg(message)
 
+@app.route("/api_signin", methods=["POST"])
+def api_signin():
+	authenticated,token = backend.signin_account(request.form)
+	if authenticated:
+		return set_auth_token(token)
+	else:
+		return error_msg("Invalid username or password!")
 @app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
