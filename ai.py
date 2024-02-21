@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify, render_template,redirect
+from flask import Flask, request, jsonify, render_template, redirect
 from flask_cors import CORS
 import google.generativeai as genai
 from functools import wraps
 import backend
+
 app = Flask(__name__)
 CORS(app)
 
@@ -40,9 +41,9 @@ def login_required(f):
 
 @app.route("/login")
 def login():
-	if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
-		return redirect("/auth")
-      
+    if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
+        return redirect("/auth")
+
 @app.route('/')
 @login_required
 def index():
@@ -50,30 +51,29 @@ def index():
 
 @app.route("/about")
 def about():
-	return redirect('https://jupilearning.app/about')
-@app.route('/chat', methods=['POST'])
-
+    return redirect('https://jupilearning.app/about')
 
 @app.route('/home')
 def home():
-	return redirect('https://jupilearning.app')
+    return redirect('https://jupilearning.app')
 
 @app.route('/logout')
 def logout():
-      return redirect('https://jupilearning.app')
+    return redirect('https://jupilearning.app')
 
-@app.route("/auth",methods=["POST","GET"])
+@app.route("/auth", methods=["POST","GET"])
 def auth():
-	try:
-		auth = request.form["course"]
-	except:
-		auth = "Nothing"
-	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
-	if validated:
-		return redirect("/")
-	else:
-		return redirect("/login")
+    try:
+        auth = request.form["course"]
+    except:
+        auth = "Nothing"
+    validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
+    if validated:
+        return redirect("/")
+    else:
+        return redirect("/login")
 
+@app.route('/chat', methods=['POST'])
 def chat():
     data = request.json
     history = data.get('history', [])
