@@ -36,7 +36,7 @@ def login_required(f):
         # Check if the user is authenticated
         if not backend.validate_token(request.cookies.get("SESSIONID"))[0]:
             # Redirect the user to the login page if not authenticated
-            return redirect("/login")
+            return render_template("/login")
         return f(*args, **kwargs)
     return decorated_function
 
