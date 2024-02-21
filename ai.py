@@ -41,7 +41,7 @@ def login_required(f):
 @app.route("/login")
 def login():
 	if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
-		return redirect("/")
+		return redirect("/auth")
       
 @app.route('/')
 @login_required
@@ -62,6 +62,17 @@ def home():
 def logout():
       return redirect('https://jupilearning.app')
 
+@app.route("/auth",methods=["POST","GET"])
+def auth():
+	try:
+		auth = request.form["course"]
+	except:
+		auth = "Nothing"
+	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
+	if validated:
+		return redirect("/")
+	else:
+		return redirect("/login")
 
 def chat():
     data = request.json
