@@ -212,7 +212,7 @@
             const sendBtn = document.getElementById('send-btn');
 
             sendBtn.addEventListener('click', function () {
-                const userMessage = userInput+promptc.value.trim();
+                const userMessage = userInput.value.trim();
                 if (userMessage !== '') {
                     addMessage('user', userMessage);
                     userInput.value = '';
