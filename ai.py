@@ -1,10 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-from flask import Flask,render_template,render_template_string,send_from_directory,request,make_response,redirect
 from flask_cors import CORS
 import google.generativeai as genai
-import backend
-import requests
-from os import path
 
 app = Flask(__name__)
 CORS(app)
@@ -30,16 +26,8 @@ safety_settings = [
 model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
-                    
-                
-@app.route("/login")
-def login():
-	if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
-		return redirect("/ai")
-	else:
-		return render_template("login.html")
-      
-@app.route('/ai')
+
+@app.route('/')
 def index():
     return render_template('frontendai.html')
 
