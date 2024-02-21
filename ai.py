@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template,request,redirect
 from flask_cors import CORS
 import google.generativeai as genai
+from functools import wraps
+import backend
 
 app = Flask(__name__)
 CORS(app)
@@ -27,7 +29,20 @@ model = genai.GenerativeModel(model_name="gemini-1.0-pro",
                               generation_config=generation_config,
                               safety_settings=safety_settings)
 
-@app.route('/')
+# Define a decorator function to check if the user is logged in
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Check if the user is authenticated
+        if not backend.validate_token(request.cookies.get("SESSIONID"))[0]:
+            # Redirect the user to the login page if not authenticated
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Apply the login_required decorator to the /ai route
+@app.route('/ai')
+@login_required
 def index():
     return render_template('frontendai.html')
 
