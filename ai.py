@@ -43,7 +43,9 @@ def login_required(f):
 def login():
     if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
         return redirect("/auth")
-
+    else:
+        return redirect ("https://jupilearning.app/login")
+    
 @app.route('/')
 @login_required
 def index():
