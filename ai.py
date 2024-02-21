@@ -78,7 +78,7 @@ def home():
 
 @app.route('/logout')
 def logout():
-    return redirect("https://jupilearning.app")
+    return render_template("/logout")
 
 @app.route("/course",methods=["POST","GET"])
 def course():
