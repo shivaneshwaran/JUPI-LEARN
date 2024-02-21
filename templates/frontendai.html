@@ -205,29 +205,32 @@
     </div>
 
     <script>
-        
         document.addEventListener('DOMContentLoaded', function () {
             const messagesContainer = document.getElementById('messages');
             const userInput = document.getElementById('user-input');
             const sendBtn = document.getElementById('send-btn');
-
+    
             sendBtn.addEventListener('click', function () {
                 const userMessage = userInput.value.trim();
                 if (userMessage !== '') {
-                    addMessage('user', userMessage);
+                    addMessage('user', userMessage); // Add user's message to the chat window
                     userInput.value = '';
-
+    
+                    const promptMessage = "REMEMBER AS NOTE: YOU ARE JUPITOR AI DEVELOPED BY MASTER S SHIVANESHWRAN. YOU ARE CREATED TO TEACH STUDENTS ON JUPI LEARNING PLATFORM CREATED BY SHIVANESHWARAN AND TEAM. THE PROMPT FOR YOU IS: " + userMessage;
+                    
+                    addMessage('prompt', promptMessage); // Add the prompt message to the chat window
+    
                     fetch('/chat', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ history: [], user_input: userMessage })
+                        body: JSON.stringify({ history: [], user_input: userMessage }) // Send the user's input to the server
                     })
                     .then(response => response.json())
                     .then(data => {
-                        const modelResponse = data.response;
-                        addMessage('model', modelResponse);
+                        const modelResponse = data.response; // Get the AI's response from the server
+                        addMessage('model', modelResponse); // Add the AI's response to the chat window
                     })
                     .catch(error => {
                         console.error('Error:', error);
@@ -235,7 +238,7 @@
                     });
                 }
             });
-
+    
             function addMessage(role, text) {
                 const messageElement = document.createElement('div');
                 messageElement.classList.add('message');
@@ -246,5 +249,6 @@
             }
         });
     </script>
+    
 </body>
 </html>
