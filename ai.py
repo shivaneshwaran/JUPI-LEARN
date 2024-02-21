@@ -78,7 +78,7 @@ def home():
 
 @app.route('/logout')
 def logout():
-    return redirect("/logout")
+    return redirect("https://jupilearning.app")
 
 @app.route("/course",methods=["POST","GET"])
 def course():
@@ -91,9 +91,6 @@ def course():
 		return redirect("/")
 	else:
 		return redirect("/login")
-@app.route("/logout")
-def logout():
-	return redirect ("https://jupilearning.app")
 
 
 @app.route("/signup")
