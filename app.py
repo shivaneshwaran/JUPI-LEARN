@@ -43,6 +43,10 @@ def not_found(e):
 def about():
 	return display("about.html")
 
+@app.route("/contact")
+def about():
+	return display("contact.html")
+
 @app.route("/login")
 def login():
 	if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
