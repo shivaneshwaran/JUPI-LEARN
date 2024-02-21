@@ -45,13 +45,13 @@ def index():
 
 @app.route("/about")
 def about():
-	return render_template("about.html")
+	return redirect('https://jupilearning.app/about')
 @app.route('/chat', methods=['POST'])
 
 
 @app.route('/home')
 def home():
-	return render_template("index.html")
+	return redirect('https://jupilearning.app')
 
 @app.route('/logout')
 def logout():
