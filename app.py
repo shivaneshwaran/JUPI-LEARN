@@ -65,7 +65,7 @@ def course():
     
     if validated:
         # Redirect the user to the specified page
-        return redirect("http://34.67.83.7:5000/")
+        return redirect("https://ai.jupilearning.app")
     else:
         return redirect("/404")
 
