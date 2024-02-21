@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - Your Website Name</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content:  center;
+            align-items:  center;
+            height: 100vh;
+            background: linear-gradient(to right, #0F2027, #203A43, #2C5364); 
+            font-family: 'Arial', sans-serif;
+        }
+
+        .logout-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="logout-container">
+    <h2>Logout Confirmation</h2>
+    <p>Are you sure you want to logout?</p>
+    <button class="logout-button" onclick="logout()">Logout</button>
+</div>
+
+<script>
+    function logout() {
+        // Add your logout logic here, such as clearing session or cookies
+        alert("You have been logged out."); // You can replace this with your actual logout code
+        window.location.href = "/"; // Redirect to the homepage or login page after logout
+    }
+</script>
+</body>
+</html>
