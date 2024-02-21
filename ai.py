@@ -10,7 +10,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 CORS(app)
 
 # Configure Generative AI with your API key
-genai.configure(api_key="AIzaSyDkYqYhYt3d6t63VgMJRgJby7bZJ5KViXc")
+genai.configure(api_key=" hided for security reasons ")
 
 # Set up your conversational model
 generation_config = {
