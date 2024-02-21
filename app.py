@@ -44,7 +44,7 @@ def about():
 	return display("about.html")
 @app.route("/contact")
 def about():
-	return display("contact.html")
+	return render_template("contact.html")
 
 
 
