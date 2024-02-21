@@ -34,10 +34,15 @@ def login_required(f):
         # Check if the user is authenticated
         if not backend.validate_token(request.cookies.get("SESSIONID"))[0]:
             # Redirect the user to the login page if not authenticated
-            return redirect("https://jupilearning.app/login")
+            return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
 
+@app.route("/login")
+def login():
+	if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
+		return redirect("/")
+      
 @app.route('/')
 @login_required
 def index():
