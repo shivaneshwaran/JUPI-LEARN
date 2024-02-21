@@ -92,11 +92,10 @@ def course():
 	else:
 		return redirect("/login")
 @app.route("/logout")
-
 def logout():
-	response = make_response(redirect("/login"))
-	response.set_cookie("SESSIONID",value="")
-	return response
+	return redirect ("https://jupilearning.app")
+
+
 @app.route("/signup")
 def signup():
 	return display("signup.html")
