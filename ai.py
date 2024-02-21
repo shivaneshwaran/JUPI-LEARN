@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify, render_template, redirect
+from flask import Flask, request, jsonify, render_template, redirect,make_response,render_template_string,send_from_directory,request
 from flask_cors import CORS
 import google.generativeai as genai
 from functools import wraps
 import backend
+from os import path
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder="static")
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 CORS(app)
 
 # Configure Generative AI with your API key
@@ -38,13 +40,25 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+def display(template,username="",course="Nothing"):
+	response = make_response(render_template(template,USERNAME=username,COURSE=course))
+	response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+	response.headers["Pragma"] = "no-cache"
+	response.headers["Expires"] = "0"
+	if request.cookies.get("SESSIONID") is None:
+		response.set_cookie("SESSIONID",value="")
+	return response
+def set_auth_token(token):
+	response = make_response(redirect("/course"))
+	response.set_cookie("SESSIONID",value=token)
+	return response
 
 @app.route("/login")
 def login():
-    if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
-        return redirect("/auth")
-    else:
-        return redirect ("https://jupilearning.app/login")
+	if backend.validate_token(request.cookies.get("SESSIONID"))[0]:
+		return redirect("/course")
+	else:
+		return display("login.html")
     
 @app.route('/')
 @login_required
@@ -61,19 +75,25 @@ def home():
 
 @app.route('/logout')
 def logout():
-    return redirect('https://jupilearning.app')
+    return redirect("/logout")
 
-@app.route("/auth", methods=["POST","GET"])
-def auth():
-    try:
-        auth = request.form["course"]
-    except:
-        auth = "Nothing"
-    validated, username = backend.validate_token(request.cookies.get("SESSIONID"))
-    if validated:
-        return redirect("/")
-    else:
-        return redirect("/login")
+@app.route("/course",methods=["POST","GET"])
+def course():
+	try:
+		course = request.form["course"]
+	except:
+		course = "Nothing"
+	validated,username = backend.validate_token(request.cookies.get("SESSIONID"))
+	if validated:
+		return display("frontendai.html",username,course)
+	else:
+		return redirect("/login")
+@app.route("/logout")
+def logout():
+	response = make_response(redirect("/login"))
+	response.set_cookie("SESSIONID",value="")
+	return response
+
 
 @app.route('/chat', methods=['POST'])
 def chat():
