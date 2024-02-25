@@ -33,10 +33,15 @@ As the founder of this free learning platform, I am proud to announce that AI tr
 
 **IF THE SITE IS UNREACHABLE**
 *THE CODE WORKS FINE IN FLASK APP* 
+
 *STEP 1 : CLONE THE REPO*
+
 *STEP 2 : ADD YOUR API KEY IN THE AI SECTION* 
+
 *STEP 3 :ADD THE ENV FILE USERNAMES AND PASSWORD*
+
 *STEP 4 :USE THIS COMMAND TO START "python3.10 app.py" (homepage) & "python3.10 ai.py" for AI page* 
+
 
 we removed the api keys and .env files for safety reasons kindly add yours or contact me at shivaneshwaran4@gmail.com
 
