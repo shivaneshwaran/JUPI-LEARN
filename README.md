@@ -32,11 +32,11 @@ learn and ask doubt with our Gemini powered AI
 As the founder of this free learning platform, I am proud to announce that AI training is underway. My team, led by S. Shivaneshwaran, is handling the server and backend development, while the AI training process is progressing steadily.
 
 **IF THE SITE IS UNREACHABLE**
-#THE CODE WORKS FINE IN FLASK APP 
-#STEP OME - 1 : CLONE THE REPO 
-#STEP TWO - 2 : ADD YOUR API KEY IN THE AI SECTION 
-#STEP THREE -3 :ADD THE ENV FILE USERNAMES AND PASSWORD 
-#STEP FOUR -4 :USE THIS COMMAND TO START "python3.10 app.py" (homepage) & "python3.10 ai.py" for AI page 
+*THE CODE WORKS FINE IN FLASK APP* 
+*STEP 1 : CLONE THE REPO*
+*STEP 2 : ADD YOUR API KEY IN THE AI SECTION* 
+*STEP 3 :ADD THE ENV FILE USERNAMES AND PASSWORD*
+*STEP 4 :USE THIS COMMAND TO START "python3.10 app.py" (homepage) & "python3.10 ai.py" for AI page* 
 
 we removed the api keys and .env files for safety reasons kindly add yours or contact me at shivaneshwaran4@gmail.com
 
