@@ -20,8 +20,8 @@ The main aim of Jupi Learning is to provide an interactive and engaging learning
 ![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/06fbdd4a-2c92-45ba-90a7-b2dfe46dff64)
 
 *NOTE : IF YOU FACE ANY ERROR WHILE LOGIN USE THIS ACC :
-                                              USERNAME :forcelogin@jupilearn.app
-                                              PASSWORD :123456789*
+USERNAME :forcelogin@jupilearn.app
+PASSWORD :123456789*
 
 *click start course python* 
 
@@ -32,11 +32,11 @@ learn and ask doubt with our Gemini powered AI
 As the founder of this free learning platform, I am proud to announce that AI training is underway. My team, led by S. Shivaneshwaran, is handling the server and backend development, while the AI training process is progressing steadily.
 
 **IF THE SITE IS UNREACHABLE**
-THE CODE WORKS FINE IN FLASK APP 
-STEP OME - 1 : CLONE THE REPO 
-STEP TWO - 2 : ADD YOUR API KEY IN THE AI SECTION 
-STEP THREE -3 :ADD THE ENV FILE USERNAMES AND PASSWORD 
-STEP FOUR -4 :USE THIS COMMAND TO START "python3.10 app.py" (homepage) & "python3.10 ai.py" for AI page 
+#THE CODE WORKS FINE IN FLASK APP 
+#STEP OME - 1 : CLONE THE REPO 
+#STEP TWO - 2 : ADD YOUR API KEY IN THE AI SECTION 
+#STEP THREE -3 :ADD THE ENV FILE USERNAMES AND PASSWORD 
+#STEP FOUR -4 :USE THIS COMMAND TO START "python3.10 app.py" (homepage) & "python3.10 ai.py" for AI page 
 
 we removed the api keys and .env files for safety reasons kindly add yours or contact me at shivaneshwaran4@gmail.com
 
