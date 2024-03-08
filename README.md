@@ -45,19 +45,11 @@ As the founder of this free learning platform, I am proud to announce that AI tr
 
 we removed the api keys and .env files for safety reasons kindly add yours or contact me at shivaneshwaran4@gmail.com
 
+**OUR JUPI LEARNING HAS BEEN LISTED IN THE TRACXN LIKE WEBSITES AS A GOOD POTENTIAL MODEL**
+![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/3a9ae4fc-2c73-416f-b56e-64e8ad229b91)
 
-Dear Google Team,
 
-We are writing to request technical support for our website, which has been experiencing numerous attacks. We are first-year students and are having difficulty maintaining the server on our own.
-
-The attacks have been causing our website to crash frequently, and we have been losing data. We have tried to implement security measures, but the attacks have continued.
-
-We would like to request assistance from your team in troubleshooting the problem and implementing additional security measures. We are confident that with your help, we can resolve the issue and ensure that our website remains secure and accessible.
-
-Thank you for your time and consideration.
-
-Sincerely,
-S Shivaneshwaran & Team (jupilearning)
+https://tracxn.com/d/companies/jupi-learning/__X3AJuHCvzIYRYrJPvFz8dvV8M7RXOcmJXu3-lKqtesU
 
 
 **Call for Sponsorships**
