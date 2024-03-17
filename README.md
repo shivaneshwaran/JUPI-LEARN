@@ -45,11 +45,11 @@ As the founder of this free learning platform, I am proud to announce that AI tr
 
 we removed the api keys and .env files for safety reasons kindly add yours or contact me at shivaneshwaran4@gmail.com
 
-**OUR JUPI LEARNING HAS BEEN LISTED IN THE TRACXN LIKE WEBSITES AS A GOOD POTENTIAL MODEL**
-![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/3a9ae4fc-2c73-416f-b56e-64e8ad229b91)
 
 
-https://tracxn.com/d/companies/jupi-learning/__X3AJuHCvzIYRYrJPvFz8dvV8M7RXOcmJXu3-lKqtesU
+**WE NEED CYBER SECURITY SUPPORT SINNCE WE ARE FACING LOTS OF ATTACKS**
+
+**NOTE : IF YOU FIND ANY DIFFIICULTY SUCH AS GATEWAY ERROR JUST TRY AFTER 1 HOUR WE HAVE MADE A SCRIPT THAT RESOLVES THE WEBSITE EVERY ONE HOUR**
 
 
 **Call for Sponsorships**
