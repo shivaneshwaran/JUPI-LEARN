@@ -18,7 +18,7 @@ The main aim of Jupi Learning is to provide an interactive and engaging learning
 **Resgister and Login**
 
 ![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/06fbdd4a-2c92-45ba-90a7-b2dfe46dff64)
-
+NOTE : IF YOU FIND ANY DIFFIICULTY SUCH AS GATEWAY ERROR JUST TRY AFTER 1 HOUR WE HAVE MADE A SCRIPT THAT RESOLVES THE WEBSITE EVERY ONE HOUR
 *NOTE : IF YOU FACE ANY ERROR WHILE LOGIN USE THIS ACC :
 USERNAME :forcelogin@jupilearn.app
 PASSWORD :123456789*
