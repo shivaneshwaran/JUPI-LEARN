@@ -53,9 +53,11 @@ To Whom it may concern,
 
 Even tho you guys had illegally cloned our project moreover didn't followed any ethics or gave us credit, even we had solid evidence based on the mail spoofing of certain hospitals in India which is very much sensitive and illegal (investigation is on progress by cyber security experts  ) 
 https://archive.pib.gov.in/release02/lyr2002/rfeb2002/01022002/r010220022.html#:~:text=Whoever%20commits%20hacking%20shall%20be,Section%2066%20of%20the%20Act.
-we Team JupiLearning wants to make remember one thing that ( we have started moving the investigation let you know that you are not fully anonymous in india with recent it acts its easy to trace down certain attackers who are committing such  level Cybercrimes )
+we Team JupiLearning wants to make remember one thing that ( we have started moving the investigation let you know that you are not fully anonymous in india with recent IT acts its easy to trace down certain attackers who are committing such  level Cybercrimes )
 
-Our mission is to provide free education for all the students and for that it's very important to protect the project it's our project we didn't sell the education from the beginning and not going to make it commercial. our vision is to provide free education making the illegally cloned version of our site , claiming it as open jupi  and doing attacks against us is actually not making any sense since you claim your self as part of FOSS, FOSS is ment to support open source community we are transparent we are open.  the only restrictions we have is you need to legally get our authorisation to modify or make anychanges which is clearly mentioned on license and that's for protecting our vision from gaints for a better future 
+Our mission is to provide free education for all the students and for that it's very important to protect the project it's our project we are providing free education from the beginning and it will persist same. 
+
+together our vision is to provide free education making the illegally cloned version of our site , claiming it as open jupi  and doing attacks against us is actually not making any sense since you claim your self as part of FOSS, FOSS is ment to support open source community we are transparent we are open.  the only restrictions we have is you need to legally get our authorisation to modify or make anychanges which is clearly mentioned on license and that's for protecting our vision from gaints for a better future 
 
 Its our duty to protect such visionary projects from getting commercialized
 
