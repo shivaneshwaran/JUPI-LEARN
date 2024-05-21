@@ -19,64 +19,22 @@ The main aim of Jupi Learning is to provide an interactive and engaging learning
 **Resgister and Login**
 
 ![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/06fbdd4a-2c92-45ba-90a7-b2dfe46dff64)
-NOTE : IF YOU FIND ANY DIFFIICULTY SUCH AS GATEWAY ERROR JUST TRY AFTER 1 HOUR WE HAVE MADE A SCRIPT THAT RESOLVES THE WEBSITE EVERY ONE HOUR
-*NOTE : IF YOU FACE ANY ERROR WHILE LOGIN USE THIS ACC :
-USERNAME :forcelogin@jupilearn.app
-PASSWORD :123456789*
-
-*click start course python* 
-
-learn and ask doubt with our Gemini powered AI 
-
-**AI Training in Progress**
-
-As the founder of this free learning platform, I am proud to announce that AI training is underway. My team, led by S. Shivaneshwaran, is handling the server and backend development, while the AI training process is progressing steadily.
-
-**IF THE SITE IS UNREACHABLE**
-*THE CODE WORKS FINE IN FLASK APP* 
-
-*STEP 1 : CLONE THE REPO*
-
-*STEP 2 : ADD YOUR API KEY IN THE AI SECTION* 
-
-*STEP 3 :ADD THE ENV FILE USERNAMES AND PASSWORD*
-
-*STEP 4 :USE THIS COMMAND TO START "python3.10 app.py" (homepage) & "python3.10 ai.py" for AI page* 
 
 
-we removed the api keys and .env files for safety reasons kindly add yours or contact me at shivaneshwaran4@gmail.com
+This repo is copyrighted under license 
+violation or misuse of our project will lead to face legal consequences we support open source community but this repo is licensed if you want to modify or improve anything it may need our approval contact us at JupiLearning@gmail.com 
 
+To Whom it may concern ,
 
+We recently noticed unauthorized cloning of our platform that is against our license legal action will be taken against the website and the community misusing the FOSS club name which is also a thing to concern cuz We support FOSS in a ethical way if you want to make an open source version of our code it should be done legally since the repo is open but we have restrictions for modifying code without authorisation and also for not giving Credits for the real creators it's priracy FOSS is against piracy #stoppriracy 
 
-**WE NEED CYBER SECURITY SUPPORT SINNCE WE ARE FACING LOTS OF ATTACKS**
+Our mission is to provide free education for all the students 
 
-**NOTE : IF YOU FIND ANY DIFFIICULTY SUCH AS GATEWAY ERROR JUST TRY AFTER 1 HOUR WE HAVE MADE A SCRIPT THAT RESOLVES THE WEBSITE EVERY ONE HOUR**
+JupiLearning will always provide The education for Free it's a promise from our side 
 
+Since our version 2 is on final stage we are planing to release the version one open source with Terms and Conditions 
 
-**Call for Sponsorships**
+only devolopers with proper authorisation can modify 
 
-To accelerate the development of our AI teaching capabilities, we are actively seeking sponsorships from Google. We believe that Google's expertise in AI and machine learning would be invaluable in enhancing our platform's capabilities.
-
-**Vision for AI Teaching**
-
-Our vision is to create an AI-powered learning platform that:
-
-* **Generates personalized videos:** AI will generate video content tailored to students' individual needs and learning styles.
-* **Provides real-time feedback:** AI will analyze student progress and provide personalized feedback to improve their understanding.
-* **Unlocks complex concepts:** AI will help students understand complex concepts through interactive simulations and visualizations.
-
-**Collaboration with Google**
-
-With Google's support, we can:
-
-* Leverage state-of-the-art AI technologies
-* Develop innovative learning experiences
-* Make AI education accessible to a wider audience
-
-**Contact**
-
-If you are interested in supporting our mission, please contact me at shivaneshwaran4@gmail.com.
-
-Together, we can revolutionize education through the power of AI.
-
-contact me @ : gmail - shivaneshwaran4@gmail.com 
+you can request the authorisation permission at our official mail ID 
+#freeeducationforeveryone #jaihind #wearessetians 
