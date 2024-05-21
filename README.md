@@ -38,3 +38,39 @@ only devolopers with proper authorisation can modify
 
 you can request the authorisation permission at our official mail ID 
 #freeeducationforeveryone #jaihind #wearessetians 
+
+
+**update**: since the illegaly cloned site has officially declared themselves that they are shuting down 
+
+
+our mission is to provide education for 100% free we need to make sure one thing very clearly that 
+
+we had many good opportunity to sell this entire project to gaint companies so that they can commercialize our vision of provide ai based education
+
+We the team JupiLearning has strongly declared ourself Infront of those corporates that JupiLearning is now and in future provide free education for all since our repo has certain limitations for modifying and redistribution we want to make it clear that the license is what preventing our *our* vision to provide free education from the gaint companies from commercializing the ai based education
+
+To Whom it may concern,
+
+Even tho you guys had illegally cloned our project moreover didn't followed any ethics or gave us credit, even we had solid evidence based on the mail spoofing of certain hospitals in India which is very much sensitive and illegal (investigation is on progress by cyber security experts  ) 
+https://archive.pib.gov.in/release02/lyr2002/rfeb2002/01022002/r010220022.html#:~:text=Whoever%20commits%20hacking%20shall%20be,Section%2066%20of%20the%20Act.
+we Team JupiLearning wants to make remember one thing that ( we have started moving the investigation let you know that you are not fully anonymous in india with recent it acts its easy to trace down certain attackers who are committing such  level Cybercrimes )
+
+Our mission is to provide free education for all the students and for that it's very important to protect the project it's our project we didn't sell the education from the beginning and not going to make it commercial. our vision is to provide free education making the illegally cloned version of our site , claiming it as open jupi  and doing attacks against us is actually not making any sense since you claim your self as part of FOSS, FOSS is ment to support open source community we are transparent we are open.  the only restrictions we have is you need to legally get our authorisation to modify or make anychanges which is clearly mentioned on license and that's for protecting our vision from gaints for a better future 
+
+Its our duty to protect such visionary projects from getting commercialized
+
+#Timetosupporttogether
+
+also we had taken necessary steps to protect our project in anycause and to provide an free E Learning platform for everyone.
+
+To our supporters, 
+we are open and transparent our repo could be private but it's not.
+we invite devolopers to contact us and get the official authorisation to improve the project "our mission to provide glob a free education"
+
+also we invite you guys to protect our idea since we are not on opposite site we need to fight together as #ssetians
+And protect our vision in a legal way 
+
+finally All the best for haters for legal consequences if persisted 
+
+Contact us on jupilearning@gmail.com
+For authorisation and share your thoughts on improving our mission
