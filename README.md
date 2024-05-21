@@ -7,26 +7,25 @@ JUPI-LEARNING is not just another e-learning platform; it's a visionary project 
 
 
 ## Why JUPI-LEARNING?
-JUPI-LEARNING uses a variety teaching method as it uses AI to teach different courses. JUPI-Learning also brings non-technical courses like business, tutorials on different languages etc. JUPI-LEARNING also destroys the myth that older citizen cannot learn coding. JUPI-LEARNING makes coding easy for every category of people.
+JUPI-LEARNING uses a variety teaching method as it uses AI to teach different courses. JUPI-Learning also brings non-technical courses like business, tutorials on different languages etc. JUPI-LEARNING also destroys the myth that older citizens cannot learn coding. JUPI-LEARNING makes coding easy for every category of people.
 
 
 **visit www.jupilearning.app**
 ![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/af8d6a18-a466-44e6-bf4d-1de3d699b6ae)
 
-#note : The .Env files and few api keys including any credentials are hided for ensuring safety  reasons. Please make sure to add your own API Keys in the respective places before running the code
-The main aim of Jupi Learning is to provide an interactive and engaging learning platform for people 
+#note : The .env files and few API keys including credentials are hidden to enforce security. Please make sure to add your own API Keys in the respective places before running the code.
+The main aim of JUPI-Learning is to provide an interactive and engaging learning platform for people.
 
-**Resgister and Login**
+**Register and Login**
 
 ![image](https://github.com/shivaneshwaran/JUPI-LEARN/assets/139312889/06fbdd4a-2c92-45ba-90a7-b2dfe46dff64)
 
+This repository is copyrighted under a proprietary license.
+Violation or misuse of the project will result in legal consequences. If you wish to modify or improve any features, feel free to contact us at jupilearning@gmail.com.
 
-This repo is copyrighted under license 
-violation or misuse of our project will lead to face legal consequences we support open source community but this repo is licensed if you want to modify or improve anything it may need our approval contact us at JupiLearning@gmail.com 
+To Whom it may concern,
 
-To Whom it may concern ,
-
-We recently noticed unauthorized cloning of our platform that is against our license legal action will be taken against the website and the community misusing the FOSS club name which is also a thing to concern cuz We support FOSS in a ethical way if you want to make an open source version of our code it should be done legally since the repo is open but we have restrictions for modifying code without authorisation and also for not giving Credits for the real creators it's priracy FOSS is against piracy #stoppriracy 
+We've recently noticed the cloning of our platform which was performed in violation of our license. Legal action will be taken against the website and the community misusing the FOSS club name which is also a thing to concern cuz We support FOSS in a ethical way if you want to make an open source version of our code it should be done legally since the repo is open but we have restrictions for modifying code without authorisation and also for not giving Credits for the real creators it's priracy FOSS is against piracy #stoppriracy 
 
 Our mission is to provide free education for all the students 
 
